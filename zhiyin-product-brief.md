@@ -37,6 +37,13 @@ Zhiyin's opportunity is to organize those fragments right when the user is emoti
 
 In travel-like scenarios, the user may not want a full plan yet. They may only need a first way to open the idea.
 
+The next product loop extends this from one-time organization to continued collection:
+
+- Zhiyin first organizes scattered signals into one parent inspiration card.
+- The user saves that card into 灵感袋.
+- Later related feed videos can be added into the same card.
+- The saved card updates over time and can be reopened.
+
 ## Target User
 
 The first demo target is a user who:
@@ -74,19 +81,64 @@ The user should not start from a blank search box. Zhiyin starts with three orga
 
 Zhiyin should feel like an intelligent content layer growing from the Douyin feed, not a new app. It should not have full-page navigation, a strategy-tool layout, or chatbot flow.
 
+### Let Interest Become A Collectible Inspiration Card
+
+The saved unit should be a mini inspiration card, not a list item or a travel plan.
+
+For the current demo, the saved parent card is:
+
+> 慢下来也能出片
+
+It contains three child directions:
+
+- 去洱海边慢下来
+- 拍一组雪山人生照
+- 把晚上留给本地味道
+
+The child directions should be visible only after opening the saved card. They should not be shown as separate top-level cards in 灵感袋.
+
 ## Current Demo Flow
 
-1. User sees the Erhai trigger content in a Douyin-like feed.
-2. A Zhiyin entry pill appears in the feed content layer.
-3. User opens Zhiyin.
-4. Zhiyin home sheet shows the understood copy and three directions.
-5. User taps one direction card.
-6. User enters one of the compact detail sheets:
+1. User browses a vertical Douyin-like feed.
+2. The first video behaves like a normal feed video.
+3. The second video shows a Zhiyin entry pill in the feed content layer.
+4. User opens Zhiyin.
+5. Zhiyin home sheet shows the understood copy and three directions.
+6. Current implementation: user taps a direction card and is asked to save the parent inspiration card **慢下来也能出片** into 灵感袋.
+7. User saves the card, then can view it as a collectible mini card in 灵感袋.
+8. Opening that mini card reveals the three child directions:
    - Erhai
    - Snow mountain
    - Local food
-7. Detail sheets show large horizontal media cards and a bottom-pinned opening method.
-8. User can return to the Zhiyin home sheet.
+9. Existing compact detail sheets remain available through "先看看详情".
+10. Videos 3 and 4 show lightweight prompts for adding related content into the saved inspiration card.
+11. Adding later content updates the saved mini card and highlights the relevant child direction.
+
+## Current Demo Loop: 灵感袋
+
+The approved next flow is:
+
+1. User opens Zhiyin from the second video.
+2. Zhiyin presents the parent inspiration card idea: **慢下来也能出片**.
+3. User chooses the first direction as the demo path.
+4. Zhiyin asks whether to save **慢下来也能出片** into 灵感袋.
+5. User saves it.
+6. User continues browsing the feed.
+7. Video 3 or 4 prompts:
+
+   > 这条可以补进你的「慢下来也能出片」
+
+8. User taps "+ 加入".
+9. Zhiyin shows that the saved card has updated.
+10. User opens 灵感袋 and sees one collectible mini card:
+
+    > 慢下来也能出片
+
+11. User taps that mini card to reveal the three child directions.
+
+This loop should express:
+
+> 灵感袋不是收藏夹，而是一组会生长的灵感卡。
 
 ## Commercial Value
 
@@ -134,6 +186,8 @@ Main risks:
 - Too much search makes it feel like a tool.
 - Too much commercial UI makes it feel like an ad.
 - Full-width detail panels make it feel less like a Douyin sub-feature.
+- A generic "云南灵感袋" could feel like a separate travel product instead of a reusable Zhiyin container.
+- Showing the three child directions as top-level saved cards would blur the hierarchy.
 
 Current mitigation:
 
@@ -141,3 +195,24 @@ Current mitigation:
 - Duplicate insight/evidence box is removed.
 - Direction cards are the primary action.
 - Detail sheets are compact, inset, media-led, and half-screen.
+- 灵感袋 will use one parent mini card for "慢下来也能出片"; the three child directions only appear after the card is opened.
+
+## 2026-05-16 Demo Status
+
+The current prototype now completes the intended product loop:
+
+- Zhiyin organizes scattered Yunnan signals into the parent card `慢下来也能出片`.
+- The user saves that parent card into 灵感袋.
+- Later feed videos can update the same card instead of creating more top-level saved items.
+- The saved card can be reopened from a later browsing moment and expanded into three child directions.
+- Each child direction can continue into a compact media-led detail sheet.
+- The card can move toward a lightweight action through a mock reminder state.
+
+The product boundary remains unchanged:
+
+- no real AI
+- no real reminder integration
+- no map
+- no complete itinerary
+- no chatbot
+- no commercial conversion page

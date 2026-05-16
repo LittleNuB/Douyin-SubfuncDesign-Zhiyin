@@ -15,6 +15,7 @@ type InspirationCarouselProps = {
   onToggleInput: () => void;
   onTextConstraintChange: (value: string) => void;
   onOpenExplore: (topic: ExploreTopic) => void;
+  onPrepareSave?: (topic: ExploreTopic, index: number) => void;
 };
 
 export function InspirationCarousel({
@@ -29,6 +30,7 @@ export function InspirationCarousel({
   onToggleInput,
   onTextConstraintChange,
   onOpenExplore,
+  onPrepareSave,
 }: InspirationCarouselProps) {
   const activeChipIds = new Set(selectedChips.map((chip) => chip.id));
   const directionTitles = ["去洱海边慢下来", "拍一组雪山人生照", "把晚上留给本地味道"];
@@ -47,7 +49,12 @@ export function InspirationCarousel({
               key={bundle.id}
               onClick={() => {
                 onSelectBundle(index);
-                onOpenExplore(directionTopics[index] ?? "erhai");
+                const topic = directionTopics[index] ?? "erhai";
+                if (onPrepareSave) {
+                  onPrepareSave(topic, index);
+                  return;
+                }
+                onOpenExplore(topic);
               }}
               role="tab"
               aria-selected={index === activeIndex}

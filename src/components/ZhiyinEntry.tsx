@@ -6,7 +6,7 @@ type ZhiyinEntryProps = {
 
 export function ZhiyinEntry({ onOpen }: ZhiyinEntryProps) {
   return (
-    <button className="zhiyin-entry" onClick={onOpen}>
+    <button className="zhiyin-entry" onPointerDown={(event) => event.stopPropagation()} onClick={onOpen}>
       <span className="zhiyin-entry__mark">
         <Sparkles size={16} />
       </span>

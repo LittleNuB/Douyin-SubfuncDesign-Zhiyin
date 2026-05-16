@@ -3,10 +3,10 @@ import { Activity, BarChart3, MousePointerClick, Sparkles } from "lucide-react";
 const metrics = [
   { label: "知音入口点击率", value: "18.6%", delta: "+6.2%" },
   { label: "5 秒理解率", value: "82%", delta: "+14%" },
-  { label: "横滑进入率", value: "41%", delta: "+9%" },
-  { label: "拨片使用率", value: "37%", delta: "+11%" },
-  { label: "卡片保存率", value: "24%", delta: "+7%" },
-  { label: "商业入口点击率", value: "9.8%", delta: "+3.1%" },
+  { label: "灵感卡保存率", value: "41%", delta: "+9%" },
+  { label: "继续补进率", value: "37%", delta: "+11%" },
+  { label: "灵感袋查看率", value: "24%", delta: "+7%" },
+  { label: "轻调使用率", value: "9.8%", delta: "+3.1%" },
 ];
 
 export function MetricsPanel() {
@@ -17,7 +17,7 @@ export function MetricsPanel() {
         路演指标面板
       </div>
       <h1>知音 Web Demo</h1>
-      <p>从“刷到”推进到“懂你、轻调、行动”的信息流子功能。</p>
+      <p>从“刷到”推进到“懂你、收进、继续补全”的信息流子功能。</p>
 
       <div className="metric-hero">
         <div>
@@ -43,11 +43,11 @@ export function MetricsPanel() {
           演示路径
         </div>
         <ol>
-          <li>刷到洱海日落视频</li>
+          <li>刷到第二条洱海日落视频</li>
           <li>打开知音半屏卡</li>
-          <li>横滑查看 3 个组合</li>
-          <li>点“少走路”并加一句想法</li>
-          <li>自然出现咖啡馆承接</li>
+          <li>收进「慢下来也能出片」</li>
+          <li>继续刷到相关内容并加入</li>
+          <li>打开灵感袋查看缩尺灵感卡</li>
         </ol>
       </div>
 

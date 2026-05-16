@@ -17,6 +17,7 @@ type ZhiyinSheetProps = {
   onToggleChip: (chip: TuningChip) => void;
   onToggleInput: () => void;
   onTextConstraintChange: (value: string) => void;
+  onPrepareSave?: (topic: ExploreTopic, index: number) => void;
 };
 
 export function ZhiyinSheet({
@@ -33,6 +34,7 @@ export function ZhiyinSheet({
   onToggleChip,
   onToggleInput,
   onTextConstraintChange,
+  onPrepareSave,
 }: ZhiyinSheetProps) {
   return (
     <div className={`sheet-layer ${isOpen ? "sheet-layer--open" : ""}`} aria-hidden={!isOpen}>
@@ -91,6 +93,7 @@ export function ZhiyinSheet({
             onToggleInput={onToggleInput}
             onTextConstraintChange={onTextConstraintChange}
             onOpenExplore={onOpenExplore}
+            onPrepareSave={onPrepareSave}
           />
         </div>
       </section>

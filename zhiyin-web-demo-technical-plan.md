@@ -8,6 +8,8 @@ Build a stable local web demo for the Douyin AI Hackathon. The demo shows Zhiyin
 
 The implementation prioritizes demo reliability and visual clarity over real backend integration.
 
+Current implementation includes the vertical short-video feed, real local video assets, and the 灵感袋 loop documented in `zhiyin-inspiration-bag-development-plan.md`.
+
 ## Tech Stack
 
 - Vite
@@ -60,10 +62,23 @@ Video assets can be added later without changing business components:
 ```ts
 media: {
   type: "video",
-  src: "/assets/erhai.mp4",
-  poster: "/assets/erhai-poster.webp"
+  src: "/assets/erhai.mp4"
 }
 ```
+
+`poster` is optional in the type, but the current feed videos intentionally do not use posters.
+
+Feed videos are represented by `FeedVideoItem` in `src/types.ts`. The current feed uses four local video files:
+
+- `/assets/feed-video-1.mp4`
+- `/assets/feed-video-2.mp4`
+- `/assets/feed-video-3.mp4`
+- `/assets/feed-video-4.mp4`
+
+Feed video poster policy:
+
+- None. `feed-image-*` files were intentionally removed from the feed video setup.
+- Do not reintroduce feed posters unless explicitly requested.
 
 ## Component Map
 
@@ -78,6 +93,11 @@ Owns top-level state:
 - `textConstraint`
 - `isInputOpen`
 
+Current note:
+
+- `App.tsx` now owns the local mock state for the 灵感袋 flow.
+- It tracks whether the parent card is saved, which feed items were added, the last added item, and the selected lightweight tuning chip.
+
 Navigation rules:
 
 - Feed + Zhiyin home are shown when `screen === "feed"`.
@@ -86,15 +106,25 @@ Navigation rules:
 
 ### `DouyinFeedScreen.tsx`
 
-Renders the Douyin-like feed:
+Renders the Douyin-like vertical video feed:
 
 - status bar
 - top channel row
 - right interaction rail
 - bottom copy
 - Zhiyin entry
-- comment bar
+- Douyin-style bottom tab bar
 - background media via `MediaView`
+- pointer and wheel swipe navigation
+- looping feed behavior
+- preloading current/adjacent media
+
+Current behavior:
+
+- Video 1: no Zhiyin entry.
+- Video 2: Zhiyin entry.
+- Video 3 and 4: lightweight follow-up prompt via `ZhiyinFollowupPrompt`.
+- The favorite/star action can be toggled locally and increments the displayed count.
 
 ### `ZhiyinSheet.tsx`
 
@@ -122,6 +152,12 @@ Important current state:
 - The duplicate `active-insight` / evidence text box has been removed.
 - The home sheet should fit in one screen without requiring vertical scroll for normal demo content.
 - Result-card stacked media is no longer part of the main flow.
+
+Current behavior:
+
+- The main demo path should save the parent card "慢下来也能出片" instead of ending at a detail sheet.
+- The existing detail sheet can remain as a secondary action such as "先看看详情".
+- The three direction cards remain child directions under the parent inspiration card.
 
 ### `CafeExploreSheet.tsx`
 
@@ -151,9 +187,36 @@ Current detail layout:
 Shared image/video renderer:
 
 - image: `<img>`
-- video: `<video muted autoPlay loop playsInline>`
+- video: `<video muted autoPlay loop playsInline preload>`
 
 Business components should keep using `MediaView`.
+
+`MediaView` still supports optional `poster`, but feed data currently omits it.
+
+### `ZhiyinFollowupPrompt.tsx`
+
+Lightweight prompt displayed on later feed videos.
+
+Current behavior:
+
+- Shows "这条可以补进你的「慢下来也能出片」".
+- Clicking it opens an update feedback sheet.
+- The feedback sheet offers "查看灵感袋" and "继续刷视频".
+
+### `InspirationSaveSheet.tsx`
+
+- save confirmation for "慢下来也能出片"
+- save success feedback
+- add-success feedback after Video 3/4 prompts
+
+### `InspirationBagSheet.tsx`
+
+- first layer: 灵感袋 with one collectible mini card
+- mini card: "慢下来也能出片"
+- second layer: the three child directions inside that mini card
+- lightweight tuning row: 更慢一点 / 少走路 / 更出片
+
+The card detail is implemented inside `InspirationBagSheet.tsx` rather than a separate component.
 
 ### `orchestration.ts`
 
@@ -185,6 +248,18 @@ Important classes:
 - `.cafe-card-strip`
 - `.cafe-card`
 - `.cafe-note`
+- `.feed-slide`
+- `.douyin-tabbar`
+- `.zhiyin-followup`
+
+Implemented classes:
+
+- `.inspiration-bag-sheet`
+- `.mini-inspiration-card`
+- `.child-direction-card`
+- `.inspiration-bag-entry`
+- `.save-hero-card`
+- `.bag-tune-panel`
 
 Current key layout decisions:
 
@@ -205,6 +280,10 @@ npm run build
 Manual browser checks:
 
 - Feed still looks like a Douyin sub-feature context.
+- Four feed videos swipe vertically and loop.
+- Video 1 has no Zhiyin entry.
+- Video 2 has Zhiyin entry.
+- Video 3/4 have follow-up prompts.
 - Zhiyin home opens and fits without needing scroll for normal content.
 - Direction cards navigate to the correct topic.
 - Erhai/Snow/Food sheets have the same compact window size.
@@ -214,7 +293,28 @@ Manual browser checks:
 
 ## Known Non-P0 Items
 
-- Real video assets are not yet connected.
 - Old stacked result-card CSS may remain but is not in the main flow.
 - Real AI model integration is not part of the current demo.
 - Real analytics tracking is not implemented.
+- 灵感袋 data is local mock state only; no persistence across refresh.
+
+## 2026-05-16 Implementation Status
+
+Current implementation status:
+
+- Feed data now includes five local video assets: `/assets/feed-video-1.mp4` through `/assets/feed-video-5.mp4`.
+- Feed videos still intentionally omit `poster`.
+- App-level local state tracks whether the inspiration card is saved, which feed ids were added, and the last added feed id.
+- `InspirationSaveSheet.tsx` handles save confirmation, save success, and add-success states.
+- `InspirationBagSheet.tsx` handles the first-layer mini card, card detail, child-direction navigation, and mock light-action reminder.
+- `CafeExploreSheet.tsx` supports per-card source labels for收藏/点赞/转发/评论 signals.
+- The three child directions in the saved card route to the existing compact detail sheets instead of creating new pages.
+- `README.md` has been added for the GitHub repository landing page.
+
+Validation:
+
+```bash
+npm run build
+```
+
+The latest build passed after the current updates.

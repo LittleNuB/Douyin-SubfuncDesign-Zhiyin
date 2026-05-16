@@ -14,6 +14,7 @@ type ExploreCard = {
   title: string;
   likes: string;
   media: MediaAsset;
+  sourceLabel?: string;
 };
 
 type ExploreConfig = {
@@ -42,6 +43,7 @@ const exploreConfigs: Record<ExploreTopic, ExploreConfig> = {
         title: "海边骑行慢下来",
         likes: "116",
         media: { type: "image", src: "/assets/erhai-cycling.webp" },
+        sourceLabel: "你点赞过",
       },
       {
         title: "湖边住一晚",
@@ -71,11 +73,13 @@ const exploreConfigs: Record<ExploreTopic, ExploreConfig> = {
         title: "穿搭先配好",
         likes: "118",
         media: { type: "image", src: "/assets/snow-outfit.webp" },
+        sourceLabel: "你转发过",
       },
       {
         title: "雪山同款角度",
         likes: "105",
         media: { type: "image", src: "/assets/snow-mountain.webp" },
+        sourceLabel: "你评论过",
       },
     ],
   },
@@ -165,6 +169,7 @@ export function CafeExploreSheet({ topic, onBack }: CafeExploreSheetProps) {
           {config.cards.map((card) => (
             <article className="cafe-card" key={card.title}>
               <MediaView media={card.media} alt={card.title} />
+              <span className="cafe-card__source">{card.sourceLabel ?? "来自你的收藏"}</span>
               <div className="cafe-card__shade" />
               <div className="cafe-card__copy">
                 <span>{card.title}</span>

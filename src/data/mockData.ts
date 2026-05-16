@@ -1,4 +1,4 @@
-import type { ContentItem, InspirationBundle, TuningChip, UserSignal } from "../types";
+import type { ContentItem, FeedVideoItem, InspirationBundle, TuningChip, UserSignal } from "../types";
 
 export const triggerContent: ContentItem = {
   id: "trigger-erhai",
@@ -7,6 +7,15 @@ export const triggerContent: ContentItem = {
   source: "similar",
   media: { type: "image", src: "/assets/erhai-sunset.webp" },
   creator: "去有风的地方",
+};
+
+export const followupContent: ContentItem = {
+  id: "followup-dali-cafe",
+  title: "大理小众咖啡馆，窗外就是风和洱海",
+  category: "food",
+  source: "similar",
+  media: { type: "image", src: "/assets/cafe-window.webp" },
+  creator: "扶光里 FUGUANGLI",
 };
 
 export const contentItems: ContentItem[] = [
@@ -98,6 +107,124 @@ export const userSignal: UserSignal = {
   watches: [triggerContent, contentItems[1], contentItems[5], contentItems[8]],
   shares: [contentItems[3]],
 };
+
+export const feedVideos: FeedVideoItem[] = [
+  {
+    ...triggerContent,
+    media: { type: "video", src: "/assets/feed-video-1.mp4" },
+    creator: "电视剧去有风...",
+    author: "电视剧去有风...",
+    publishDate: "2023年01月25日",
+    caption: "#红豆遥遥冰是懂谈恋爱的 浪漫不需要特殊的节日赋予，它藏在我们相...",
+    location: "大理白族自治州",
+    musicTitle: "白色岛屿 - 小大火",
+    promptType: "none",
+    aiSignal: "识别到你近期多次收藏云南、洱海和慢旅行内容",
+    stats: { likes: "1.5万", comments: "677", favorites: "814", shares: "6050" },
+  },
+  {
+    id: "feed-snow",
+    title: "洱海的日落是不能错过的时刻",
+    category: "scenery",
+    source: "similar",
+    media: { type: "video", src: "/assets/feed-video-2.mp4" },
+    creator: "扶光里 FUGUANGLI",
+    author: "扶光里 FUGUANGLI",
+    publishDate: "03月20日",
+    caption: "洱海的日落是不能错过的时刻！#旅行随拍风景如画的地方 #我的旅行日...",
+    location: "丽江市",
+    musicTitle: "黄昏日落之前",
+    promptType: "zhiyinEntry",
+    aiSignal: "雪山机位、穿搭和同款角度已超过兴趣阈值",
+    stats: { likes: "2.3万", comments: "902", favorites: "1267", shares: "8321" },
+  },
+  {
+    ...followupContent,
+    media: { type: "video", src: "/assets/feed-video-3.mp4" },
+    creator: "谢景行",
+    author: "谢景行",
+    publishDate: "01月08日",
+    caption: "终于忘记你的时候 你出现在我的梦里. #旅行 #大理",
+    location: "大理海西",
+    musicTitle: "慢一点也没关系 - 玻璃杯",
+    promptType: "inspirationAdd",
+    aiSignal: "这条内容可补全你已保存的洱海慢旅行灵感",
+    promptTarget: "慢下来也能出片",
+    stats: { likes: "9376", comments: "318", favorites: "706", shares: "2580" },
+  },
+  {
+    id: "feed-erhai-cycling",
+    title: "终于在云南拍上这个牵手转场啦",
+    category: "photo",
+    source: "similar",
+    media: { type: "video", src: "/assets/feed-video-4.mp4" },
+    creator: "木木崽",
+    author: "木木崽",
+    publishDate: "02月12日",
+    caption: "终于在云南拍上这个牵手转场啦💐 #旅行转场 #云南 #大理 #去有风的...",
+    location: "洱海生态廊道",
+    musicTitle: "风会带你到海边 - 河流",
+    promptType: "inspirationAdd",
+    aiSignal: "少走路、傍晚可去地点和低强度移动被继续补全",
+    promptTarget: "慢下来也能出片",
+    stats: { likes: "1.1万", comments: "421", favorites: "899", shares: "3110" },
+  },
+  {
+    id: "feed-snow-leopard",
+    title: "凌小明日常",
+    category: "scenery",
+    source: "similar",
+    media: { type: "video", src: "/assets/feed-video-5.mp4" },
+    creator: "千鹤·Ronin",
+    author: "千鹤·Ronin",
+    publishDate: "05月16日",
+    caption: "凌小明日常 #雪豹之都#雪豹救护#凌小明",
+    location: "西宁野生动物园",
+    musicTitle: "原声 - 千鹤·Ronin",
+    promptType: "none",
+    aiSignal: "普通浏览内容，用于承接已保存后的灵感袋入口",
+    stats: { likes: "3.8万", comments: "1264", favorites: "9302", shares: "2.1万" },
+  },
+];
+
+export const inspirationBagCard = {
+  id: "slow-photo",
+  title: "慢下来也能出片",
+  source: "来自你刷过、收藏过和刚刚补进的云南内容。",
+  baseCount: 9,
+  chips: ["洱海边", "雪山照", "本地味"],
+  distribution: "洱海边 4 · 雪山照 3 · 本地味 2",
+  completeness: "灵感完整度 72%",
+  gap: "还差一个「什么时候去」",
+  covers: [
+    "/assets/cafe-window.webp",
+    "/assets/snow-mountain.webp",
+    "/assets/night-market.webp",
+  ],
+  childDirections: [
+    {
+      id: "erhai",
+      title: "去洱海边慢下来",
+      summary: "窗边咖啡、日落、少走路",
+      note: "把咖啡、日落和住宿放在更靠近的片区。",
+      media: { type: "image", src: "/assets/cafe-window.webp" },
+    },
+    {
+      id: "snow",
+      title: "拍一组雪山人生照",
+      summary: "机位、穿搭、上午光线",
+      note: "先看光线干净的机位，再决定穿搭和角度。",
+      media: { type: "image", src: "/assets/snow-spot.webp" },
+    },
+    {
+      id: "food",
+      title: "把晚上留给本地味道",
+      summary: "菌子火锅、小街、夜市",
+      note: "晚饭避开热门榜，把本地小店和夜市慢慢串起来。",
+      media: { type: "image", src: "/assets/food-restaurant.webp" },
+    },
+  ],
+} as const;
 
 export const defaultChips: TuningChip[] = [
   { id: "slower", label: "更慢一点", effect: "slower" },

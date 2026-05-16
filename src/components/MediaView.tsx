@@ -4,9 +4,11 @@ type MediaViewProps = {
   media: MediaAsset;
   className?: string;
   alt: string;
+  autoPlay?: boolean;
+  preload?: "none" | "metadata" | "auto";
 };
 
-export function MediaView({ media, className, alt }: MediaViewProps) {
+export function MediaView({ media, className, alt, autoPlay = true, preload = "metadata" }: MediaViewProps) {
   if (media.type === "video") {
     return (
       <video
@@ -14,9 +16,10 @@ export function MediaView({ media, className, alt }: MediaViewProps) {
         src={media.src}
         poster={media.poster}
         muted
-        autoPlay
+        autoPlay={autoPlay}
         loop
         playsInline
+        preload={preload}
         aria-label={alt}
       />
     );

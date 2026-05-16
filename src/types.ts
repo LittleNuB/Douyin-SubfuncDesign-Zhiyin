@@ -23,6 +23,27 @@ export type ContentItem = {
   creator?: string;
 };
 
+export type FeedPromptType = "zhiyinEntry" | "inspirationAdd" | "none";
+
+export type FeedStats = {
+  likes: string;
+  comments: string;
+  favorites: string;
+  shares: string;
+};
+
+export type FeedVideoItem = ContentItem & {
+  author: string;
+  publishDate: string;
+  caption: string;
+  location: string;
+  musicTitle: string;
+  promptType: FeedPromptType;
+  aiSignal: string;
+  promptTarget?: string;
+  stats: FeedStats;
+};
+
 export type UserSignal = {
   favorites: ContentItem[];
   likes: ContentItem[];

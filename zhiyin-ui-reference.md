@@ -12,18 +12,21 @@ Priority:
 2. Make Zhiyin feel like it naturally grows from the feed.
 3. Use half-sheet / panel grammar.
 4. Keep all detail pages compact and media-led.
+5. Treat saved results as collectible inspiration cards, not itinerary documents.
 
 ## Feed Page
 
 Keep:
 
 - vertical video background
+- vertical swipe interaction
 - status bar
 - top channel navigation
 - left menu icon
 - right interaction rail
 - bottom author/copy/location/music/comment layers
 - black Zhiyin entry pill near the bottom content layer
+- Douyin-style bottom tab bar
 
 Avoid:
 
@@ -31,6 +34,12 @@ Avoid:
 - large floating CTA buttons
 - top search-led entry
 - guide-page navigation
+
+Current feed rule:
+
+- The first video should not show the Zhiyin entry.
+- The second video should show the Zhiyin entry.
+- Later videos can show a lighter "补进灵感" prompt.
 
 ## Zhiyin Entry
 
@@ -89,6 +98,12 @@ Behavior:
 
 - Click directly opens the matching detail page.
 - The cards are choices, not itinerary steps.
+
+Current behavior:
+
+- For the main demo path, clicking a direction should lead into saving the parent inspiration card "慢下来也能出片".
+- Existing detail sheets can remain as secondary exploration.
+- The three direction cards are child directions under "慢下来也能出片", not separate top-level saved cards.
 
 Visual:
 
@@ -181,6 +196,63 @@ Food:
 
 Keep topic pages as inspiration continuations, not full guides.
 
+## Inspiration Bag
+
+The current implemented collection surface is 灵感袋.
+
+Hierarchy:
+
+1. 灵感袋
+2. 缩尺灵感卡: 慢下来也能出片
+3. Child directions inside that card:
+   - 去洱海边慢下来
+   - 拍一组雪山人生照
+   - 把晚上留给本地味道
+
+Do not call the first layer "云南灵感袋". Yunnan is the current scenario, not the product container.
+
+### Mini Inspiration Card
+
+The first layer of 灵感袋 should show a collectible mini card:
+
+- title: 慢下来也能出片
+- metadata: 3 个打开方式 / 已收集 9 条 / 新补进 +1
+- cover: stacked thumbnails or a compact collage
+- chips: 洱海边 / 雪山照 / 本地味
+
+The mini card should feel like an object the user collected. Avoid a plain list row.
+
+### Card Detail
+
+After tapping the mini card, show the three child directions.
+
+Each child direction should be compact:
+
+- title
+- one-line summary
+- optional update badge
+- small media thumbnail
+
+The "去洱海边慢下来" child direction can show "新补进 +1" after Video 3 is added.
+
+The detail should not become a travel guide page. It should show what is inside the saved inspiration card.
+
+### Update Feedback
+
+When the user taps "+ 加入" on a later feed video, show lightweight feedback:
+
+```text
+已加入「慢下来也能出片」
+知音把这条内容补进了灵感卡。
+```
+
+Then offer:
+
+- 查看灵感袋
+- 继续刷视频
+
+This feedback should be a half-sheet or compact card, not a full page.
+
 ## Color And Texture
 
 Feed:
@@ -225,6 +297,8 @@ Do not add:
 - chatbot messages
 - e-commerce listing UI
 - full-screen independent app navigation
+- generic collection manager UI
+- separate top-level cards for each child direction
 
 ## Visual QA Checklist
 
@@ -237,4 +311,21 @@ Before handing off:
 - Erhai/Snow/Food sheets share size and layout
 - media cards are large enough and reduce blank space
 - opening method sits near the bottom of detail sheets
+- first video has no Zhiyin entry
+- second video has Zhiyin entry
+- later videos have lighter follow-up prompts
+- 灵感袋 mini card uses the parent "慢下来也能出片"
+- the three child directions are visible only after opening that mini card
 - `npm run build` passes
+
+## 2026-05-16 UI Progress Notes
+
+Latest UI decisions:
+
+- The saved inspiration mini card uses a collectible-card layout: top cover collage, centered title/meta/chips/progress, and no text/image overlap.
+- The mini card remains a single parent card; child directions are not shown as top-level saved cards.
+- Child direction cards in the detail are clickable and use a subtle arrow affordance.
+- The lightweight action panel keeps the action low pressure, including `周末先去找个低配代餐`.
+- Detail media cards show small source badges. Default is `来自你的收藏`; individual cards can show `你点赞过`, `你转发过`, or `你评论过`.
+- The Zhiyin feed entry typography was tightened to keep `你收藏的云南，有 3 种打开方式` visible without changing the original pill layout.
+- Video 5 gives the demo a later-feed moment for reopening the saved 灵感袋 card.
