@@ -63,15 +63,6 @@ export function InspirationCarousel({
         })}
       </div>
 
-      <div className="active-insight">
-        <p>{tunedBundle.insight}</p>
-        <div className="evidence-row" aria-label="知音理解依据">
-          {tunedBundle.evidence.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </div>
-      </div>
-
       <div className="chip-row" aria-label="轻量调一调">
         {tunedBundle.chips.map((chip) => (
           <button

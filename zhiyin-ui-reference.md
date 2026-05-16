@@ -1,247 +1,240 @@
-# 知音 Web Demo UI 参考说明
+# Zhiyin Web Demo UI Reference
 
-更新时间：2026-05-16
+Updated: 2026-05-16
 
-## 1. UI 目标
+## UI Goal
 
-知音必须被设计成抖音信息流里的子功能，而不是独立 AI 工具、旅行攻略页或外部 Web App。
+Zhiyin should feel like a native AI layer inside Douyin's feed. It should not look like a separate web app, travel guide, search tool, or chatbot.
 
-视觉优先级：
+Priority:
 
-1. 先像抖音视频信息流。
-2. 再自然长出知音入口。
-3. 半屏卡和延展页沿用抖音弹层 / 面板语法。
-4. 知音品牌感只做小面积点缀，不破坏信息流原生感。
+1. Keep the Douyin video feed as the main scene.
+2. Make Zhiyin feel like it naturally grows from the feed.
+3. Use half-sheet / panel grammar.
+4. Keep all detail pages compact and media-led.
 
-## 2. 最新确认的 UI 决策
+## Feed Page
 
-以下决策以当前代码为准：
+Keep:
 
-- 知音半屏卡保留当前浅色纸张/票据感，不再改成深色玻璃。
-- 点击 3 个方向卡后，直接进入洱海 / 雪山 / 美食延展半屏页。
-- 结果卡折叠图不再是必需 UI。
-- 当前图片是阶段素材，后续替换为视频素材。
+- vertical video background
+- status bar
+- top channel navigation
+- left menu icon
+- right interaction rail
+- bottom author/copy/location/music/comment layers
+- black Zhiyin entry pill near the bottom content layer
 
-## 3. 视频信息流页
+Avoid:
 
-需要保持抖音视频页的熟悉结构：
+- center modal launchers
+- large floating CTA buttons
+- top search-led entry
+- guide-page navigation
 
-- 竖屏视频背景。
-- 状态栏。
-- 顶部频道：上海 / 关注 / 热点 / 团购 / 商城 / 推荐。
-- 左侧菜单按钮。
-- 右侧互动栏：头像、关注、点赞、评论、收藏、分享、音乐盘。
-- 左下作者、日期、正文、地点、音乐标签。
-- 底部评论输入栏。
-- 知音入口位于底部信息区附近。
+## Zhiyin Entry
 
-知音入口不应放在：
+The entry should feel like native content continuation, not an ad.
 
-- 屏幕中央弹窗。
-- 右侧互动栏中。
-- 顶部频道或搜索区旁边。
-- 独立悬浮大按钮。
+Current entry intent:
 
-## 4. 知音入口
+- "Your saved Yunnan has three ways to open"
+- "Zhiyin organized it"
+- "Open and see"
 
-当前入口文案：
+Visual:
 
-```text
-你收藏的云南，有 3 种打开方式
-知音已整理好
-打开看看
-```
+- dark translucent pill
+- small Zhiyin mark
+- fits in the video content layer
 
-入口样式：
+## Zhiyin Home Sheet
 
-- 半透明深色胶囊。
-- 小面积知音标识。
-- 不像广告弹窗。
-- 与抖音底部信息层级融合。
+Current structure:
 
-## 5. 知音半屏卡
+1. drag handle
+2. close button
+3. warm paper card
+4. brand row
+5. understood copy
+6. recommendation row with refresh button placeholder
+7. three direction cards
+8. tuning chips
+9. one-thought input
 
-当前保留浅色纸张/票据感卡片。
+Latest decision:
 
-关键 class：
+- The duplicate insight/evidence text box below the direction cards has been removed.
+- The home sheet should show all normal content in one screen.
+- It should not require vertical scroll for the demo path.
 
-- `.zhiyin-sheet`
-- `.zhiyin-paper-card`
-- `.paper-brand-row`
-- `.understood-card`
-- `.direction-card`
+Visual direction:
 
-结构：
+- warm paper / receipt-like card
+- restrained Zhiyin branding
+- small stamp detail
+- subtle gold accent
+- no large AI gradient
+- no independent app chrome
 
-1. 拖拽 handle。
-2. 右上关闭按钮。
-3. 知音品牌行。
-4. 被理解文案。
-5. 3 个方向卡。
-6. 当前 insight 和 evidence。
-7. 轻量拨片。
-8. “加一句想法”。
+## Direction Cards
 
-半屏卡首屏只解决一个问题：
+Current three cards:
 
-```text
-它为什么懂我？
-```
+- Go slow by Erhai
+- Take a snow mountain life photo set
+- Keep the evening for local food
 
-不要在这里堆完整攻略、地图、日程或搜索筛选。
+Behavior:
 
-## 6. 方向卡
+- Click directly opens the matching detail page.
+- The cards are choices, not itinerary steps.
 
-当前 3 个方向卡：
+Visual:
 
-- 去洱海边慢下来
-- 拍一组雪山人生照
-- 把晚上留给本地味道
+- horizontal small card group
+- image on top
+- title and short copy below
+- active state is visible but not loud
+- compact enough to leave room for chips and one-thought input
 
-当前交互：
+## Tuning Chips
 
-- 点击方向卡后直接进入对应延展半屏页。
-- 不再要求先展示结果卡折叠图。
+Current chip examples:
 
-方向卡视觉：
+- slower
+- more photogenic
+- less walking
+- lower budget
+- suitable for two people
 
-- 小卡片横向排列。
-- 图片在上，标题和摘要在下。
-- 当前方向有明显选中状态。
-- 卡片尺寸要保持轻量，不像攻略列表。
+Principles:
 
-## 7. 延展半屏页
+- chips are lightweight tuning, not filters for a search result page
+- keep one row horizontal scroll if needed
+- do not expand into a full settings panel
 
-当前由 `CafeExploreSheet` 承载三个主题：
+## One-Thought Input
 
-- `erhai`：看洱海。
-- `snow`：看雪山。
-- `food`：看美食。
+This is a short constraint input, not a chat box.
 
-虽然文件名仍是 Cafe，但 UI 实际已经是主题延展页。
+Correct:
 
-延展页结构：
+- collapsed by default
+- opens one short input row
+- examples like "with mom" or "not too tiring"
 
-- 顶部返回。
-- 居中标题。
-- 右侧搜索图标仅作弱入口，不成为主交互。
-- 知音继续整理的短文案。
-- 横向大卡片。
-- 主卡居中，两侧露出。
-- 底部打开方式说明。
+Avoid:
 
-延展页应继续保持半屏承接感，不要变成完整攻略页。
+- chatbot bubbles
+- assistant greeting
+- long textarea
+- full-screen search
 
-## 8. 结果卡折叠图
+## Detail Sheets
 
-历史上曾设计过三图折叠结果卡：
+Current implementation uses `CafeExploreSheet` for:
 
-- `.result-card`
-- `.stacked-media`
+- Erhai
+- Snow mountain
+- Food
 
-当前最新决策：
+Despite the component name, these are general topic detail sheets.
 
-- 结果卡折叠图不再必须。
-- 现阶段不需要恢复到主流程。
-- 相关 CSS 可暂留，后续如长期不用再清理。
+Current layout:
 
-## 9. “加一句想法”
+- inset window matching Zhiyin home card scale
+- compact header
+- light search icon only as a weak entry
+- short "Zhiyin continues organizing" intro
+- large horizontal media cards
+- active dots
+- bottom-pinned opening method copy
 
-这是轻量约束入口，不是搜索框，也不是聊天输入框。
+Important recent adjustment:
 
-正确方式：
+- Detail sheets are not full-width.
+- Detail media should be large and use available vertical space.
+- Bottom blank area should be avoided.
+- Opening method text should sit at the bottom.
 
-- 默认收起。
-- 点击后出现短输入条。
-- 示例：想带妈妈去 / 不想太累。
-- 提交后只校准当前组合。
+## Topic Content
 
-避免：
+Erhai:
 
-- 全屏搜索页。
-- 聊天气泡。
-- 长输入框。
-- “有什么可以帮你”的助手口吻。
-- 搜索结果页跳转。
+- cafes
+- cycling
+- restaurants
+- stays
 
-## 10. 色彩与质感
+Snow mountain:
 
-信息流页：
+- photo spots
+- outfits
+- same-angle inspiration
 
-- 视频/图片背景。
-- 黑色渐变遮罩。
-- 白色主文字。
-- 半透明深色胶囊。
+Food:
 
-知音半屏卡：
+- restaurants
+- night market
+- local snacks
 
-- 当前为浅色纸张/票据感。
-- 小面积使用金棕、黑色、白色层次。
-- 保留轻量阴影和圆角。
-- 不再要求深色玻璃风格。
+Keep topic pages as inspiration continuations, not full guides.
 
-延展页：
+## Color And Texture
 
-- 保持浅色半屏卡与媒体卡片组合。
-- 横滑大图是视觉重心。
-- 不使用大面积独立 App 式导航。
+Feed:
 
-## 11. 字体与可读性
+- image/video background
+- dark overlays
+- white Douyin-style text
+- black translucent entry pill
 
-推荐字体：
+Zhiyin home:
 
-```css
-font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-```
+- warm off-white paper
+- subtle gold
+- dark text
+- soft shadow
 
-要求：
+Detail sheets:
 
-- 路演投屏时关键文案能读清。
-- 信息流正文不超过 2 行。
-- 方向卡标题不挤压。
-- 延展页大卡片文字不遮挡关键画面。
-- 替换视频素材后重新检查亮度和遮罩。
+- warm paper tone matching home card
+- media cards as visual focus
+- subdued text hierarchy
+- avoid heavy blue/dark app panel look
 
-## 12. 素材状态
+## Typography And Readability
 
-当前素材为阶段 `.webp` 图片。
+Use the existing app font stack. Keep text concise.
 
-后续替换视频时：
+Checks:
 
-- 优先替换信息流背景视频。
-- 再替换方向卡和延展页媒体。
-- 保持 `MediaView` 统一渲染。
-- 为视频准备 poster，避免首帧加载空白。
+- direction titles should not wrap awkwardly
+- detail card titles should remain readable over media
+- projected demo text should be readable at a glance
+- no overlapping UI
 
-## 13. 不要做的方向
+## Do Not Build
 
-不要做成攻略页：
+Do not add:
 
-- Day 1 / Day 2 行程。
-- 地图路线详情。
-- 大量筛选器。
-- 长篇说明文案。
+- Day 1 / Day 2 itinerary blocks
+- maps or route planning
+- large search results page
+- chatbot messages
+- e-commerce listing UI
+- full-screen independent app navigation
 
-不要做成聊天机器人：
+## Visual QA Checklist
 
-- AI 和用户来回对话。
-- 聊天气泡。
-- 长输入框。
-- 助手式欢迎语。
+Before handing off:
 
-不要做成广告：
-
-- 首屏直接卖酒店、门票、团购。
-- 大面积营销 banner。
-- 电商导购列表。
-
-## 14. 路演可读性检查
-
-每次 UI 改动后检查：
-
-- 知音入口是否明显但不突兀。
-- 半屏卡是否保留当前浅色风格。
-- 3 个方向卡是否能一眼理解。
-- 点击方向卡是否进入正确延展页。
-- 横滑卡片是否主卡居中、两侧露出。
-- 手机内 UI 是否没有文本重叠。
+- home sheet fits in one screen
+- no duplicate insight/evidence box on the home sheet
+- three direction cards are visible and tappable
+- chips and one-thought input remain visible
+- Erhai/Snow/Food sheets share size and layout
+- media cards are large enough and reduce blank space
+- opening method sits near the bottom of detail sheets
+- `npm run build` passes

@@ -1,296 +1,143 @@
-# 知音：刷到懂你的瞬间
+# Zhiyin Product Brief
 
-更新时间：2026-05-16
+Updated: 2026-05-16
 
-## 1. 产品一句话
+## One-Line Product Definition
 
-知音是抖音信息流里的 AI 灵感重组功能：当用户刷到某个兴趣内容时，它会把用户过往收藏、停留、点赞、转发过的碎片内容重新组织成一个“刚好适合此刻”的可行动内容单元。
+Zhiyin is an AI content-organizing layer inside the Douyin feed. When a user is triggered by a piece of content, Zhiyin reorganizes the user's past favorites, likes, watch signals, and shares into a few lightweight ways to open the moment.
 
-以云南出游为例，用户刷到一条洱海日落内容时，知音不只是推荐更多云南视频，也不是生成传统攻略，而是识别用户收藏夹里的美食、风景、穿搭、摄影、住宿、避坑等碎片，把它们组织成几个更轻的“出发打开方式”。
+It does not answer "show me more Yunnan videos." It answers "what does my saved Yunnan content already say about the way I want to go?"
 
-核心体验：
+## Demo Scenario
 
-```text
-不是“猜你喜欢云南”，而是“你刷过和收藏过的云南，已经有了自己的形状”。
-```
+Current fixed scenario:
 
-## 2. 背景与洞察
+- User is browsing a Douyin-style feed.
+- The trigger content is an Erhai / Dali sunset scene.
+- The user's interest history includes cafes, Erhai sunsets, snow mountain photo spots, ethnic-style outfits, local food, and avoid-pit content.
+- Zhiyin turns those signals into three direction cards.
 
-抖音用户每天会刷到大量内容，其中很多内容会被收藏、点赞、转发或长时间停留。但这些兴趣信号通常是碎片化的。
+The three current directions:
 
-用户可能收藏过：
+- Go slow by Erhai.
+- Take a snow mountain life photo set.
+- Keep the evening for local food.
 
-- 一条洱海日落内容。
-- 一个大理咖啡馆探店。
-- 一套民族风穿搭。
-- 一个玉龙雪山拍照机位。
-- 一条云南避坑内容。
+## Product Opportunity
 
-这些内容分散在收藏夹里。用户如果要真正行动，需要自己回看、筛选、对比、整理。
+Douyin already captures many intent signals, but those signals are fragmented:
 
-知音要解决的问题是：
+- favorites
+- likes
+- long watches
+- shares
+- similar content interaction
 
-```text
-抖音已经知道用户被什么打动，但还没有在用户刚好被某条内容触发的瞬间，把这些喜欢组织成一个能继续探索、选择和行动的答案。
-```
+Zhiyin's opportunity is to organize those fragments right when the user is emotionally triggered by related feed content.
 
-## 3. 产品机会
+In travel-like scenarios, the user may not want a full plan yet. They may only need a first way to open the idea.
 
-传统信息流主要解决“推荐你看什么”。
+## Target User
 
-知音进一步解决：
+The first demo target is a user who:
 
-```text
-当用户刷到一个兴趣入口时，AI 能不能理解这个兴趣背后的潜在任务，并把内容组织成下一步选择？
-```
+- saves travel and lifestyle content but has not organized it
+- is inspired by destination content in the feed
+- prefers being guided by lightweight suggestions rather than active search
+- wants to choose a mood or direction before planning details
 
-在出游场景下，用户刷到“云南”相关内容，背后的真实需求可能不是继续看更多视频，而是：
+This user is earlier than "I booked a trip and need an itinerary." They are at "I kind of want to go."
 
-- 我收藏的这些云南内容到底说明我想要什么？
-- 我适合怎样打开云南？
-- 我是想放空、拍照、美食探索，还是高密度打卡？
-- 我现在还缺哪些信息，才能从“想去”变成“可以计划”？
+## Core Experience Principles
 
-知音的创新点在于：
+### Be Understood Before Being Guided
 
-```text
-把信息流从“内容消费”推进到“意图被看见、被组织、被轻量推进”。
-```
+Zhiyin first shows that it understands the user's taste:
 
-## 4. 目标用户
+- cafes
+- Erhai sunset
+- snow mountain spots
+- ethnic-style outfits
+- local food
 
-第一阶段聚焦有明确兴趣但尚未行动的用户。
+Then it offers directions.
 
-典型用户：
+### Start From Organized Suggestions
 
-- 收藏了多条旅行内容，但没有整理计划的人。
-- 刷到目的地内容后产生“想去”冲动的人。
-- 喜欢看攻略，但不愿主动搜索和做表格的人。
-- 被美景、美食、穿搭、摄影种草，但不知道如何串起来的人。
+The user should not start from a blank search box. Zhiyin starts with three organized directions, then allows lightweight tuning:
 
-以云南为例，用户不是已经买好机票的人，而是处于：
+- tap a direction card
+- tap chips
+- add one short thought
 
-```text
-有点想去，但还没开始规划。
-```
+### Stay Inside Douyin
 
-这是抖音最有优势的阶段，因为用户的需求是被内容激发出来的。
+Zhiyin should feel like an intelligent content layer growing from the Douyin feed, not a new app. It should not have full-page navigation, a strategy-tool layout, or chatbot flow.
 
-## 5. 当前 Demo 场景
+## Current Demo Flow
 
-当前完整演示场景：
+1. User sees the Erhai trigger content in a Douyin-like feed.
+2. A Zhiyin entry pill appears in the feed content layer.
+3. User opens Zhiyin.
+4. Zhiyin home sheet shows the understood copy and three directions.
+5. User taps one direction card.
+6. User enters one of the compact detail sheets:
+   - Erhai
+   - Snow mountain
+   - Local food
+7. Detail sheets show large horizontal media cards and a bottom-pinned opening method.
+8. User can return to the Zhiyin home sheet.
 
-- 云南
-- 大理
-- 洱海
-- 咖啡馆 / 雪山 / 美食延展
+## Commercial Value
 
-默认触发内容：
+Commercial continuation should be delayed and contextual.
 
-- 傍晚 7:30 的洱海。
-- 适合发呆、看风和等日落。
+Current commercial-like extension surfaces:
 
-用户收藏信号：
+- Erhai: cafes, cycling, restaurants, stays
+- Snow mountain: photo spots, outfits, templates
+- Food: restaurants, night market, local snacks
 
-- 大理咖啡馆。
-- 洱海日落。
-- 雪山机位。
-- 民族风穿搭。
-- 云南美食。
-- 避坑内容。
+The demo should not hard-sell hotels, tickets, or group-buy offers on the home sheet. The value comes after the user chooses a direction.
 
-## 6. Demo 主流程
+## What The Product Is Not
 
-当前代码采用以下流程：
+Zhiyin is not:
 
-1. 用户刷到洱海日落信息流内容。
-2. 视频底部出现知音入口。
-3. 用户点击“打开看看”。
-4. 知音半屏卡展开。
-5. 知音先说明它理解了用户喜欢的云南。
-6. 系统给出 3 个打开方式：
-   - 去洱海边慢下来。
-   - 拍一组雪山人生照。
-   - 把晚上留给本地味道。
-7. 用户点击任一方向卡。
-8. 直接进入对应延展半屏页：
-   - 洱海
-   - 雪山
-   - 美食
-9. 用户可返回知音首页或继续回到信息流。
+- a travel guide page
+- a search engine
+- a chatbot
+- a booking or e-commerce page
+- a map route planner
+- a Day 1 / Day 2 itinerary generator
 
-最新确认：
+## Success Metrics For Demo Storytelling
 
-- 方向卡点击后直接进入延展页。
-- 不再要求在主流程里展示结果卡折叠图。
-- 当前浅色纸张/票据感半屏卡保留。
+The metrics panel is for pitch storytelling only. It can show:
 
-## 7. 核心体验原则
+- Zhiyin entry click rate
+- five-second understanding rate
+- direction-card entry rate
+- chip usage rate
+- card save rate
+- commercial continuation click rate
+- complete demo path duration
 
-### 7.1 先被理解，再给选择
+No real tracking is required for the current demo.
 
-知音不是直接给攻略，而是先让用户感到：
+## Current Product Risk
 
-```text
-它看懂了我的兴趣结构。
-```
+Main risks:
 
-当前半屏卡表达：
+- Too much text makes it feel like a guide.
+- Too much input makes it feel like a chatbot.
+- Too much search makes it feel like a tool.
+- Too much commercial UI makes it feel like an ad.
+- Full-width detail panels make it feel less like a Douyin sub-feature.
 
-- 咖啡馆。
-- 雪山机位。
-- 民族风穿搭。
-- 地道美食。
-- 慢下来也能出片。
+Current mitigation:
 
-### 7.2 系统先组织，用户轻量校准
-
-知音不要求用户从空白输入开始。
-
-系统先给出方向，用户只做轻量动作：
-
-- 点击方向卡。
-- 点拨片。
-- 加一句短想法。
-
-### 7.3 它仍在抖音里
-
-知音不是新 App，不需要完整导航、攻略框架或聊天界面。
-
-它应该像抖音信息流中自然长出来的智能内容层。
-
-## 8. 当前 UI 决策
-
-最新确认：
-
-- 半屏卡保留当前浅色纸张/票据感。
-- 方向卡直达延展页。
-- 结果卡折叠图不再必须。
-- 当前图片素材是阶段素材，后续替换视频素材。
-
-这意味着后续优化应围绕当前代码继续打磨，而不是回退到旧方案。
-
-## 9. AI 能力设计
-
-知音背后的 AI 不是简单总结，而是完成四件事：
-
-### 9.1 兴趣识别
-
-判断用户是否对入口内容产生真实兴趣。
-
-信号包括：
-
-- 当前视频行为。
-- 历史观看偏好。
-- 收藏夹内容。
-- 点赞、分享、停留。
-
-### 9.2 收藏夹理解
-
-将收藏内容结构化：
-
-- 风景。
-- 美食。
-- 穿搭。
-- 摄影。
-- 交通。
-- 避坑。
-
-### 9.3 意图推断
-
-从内容中判断用户真正想要的体验类型：
-
-- 慢下来也能出片。
-- 雪山照片优先。
-- 晚上吃到本地味道。
-
-### 9.4 缺口补全
-
-识别收藏夹中缺少的信息，并从抖音内容生态中补足。
-
-Demo 阶段使用本地 mock 和规则函数模拟这些能力。
-
-## 10. 商业价值表达
-
-Demo 需要体现商业价值，但不能一开始就卖东西。
-
-更合适的节奏：
-
-1. 先让用户感到“它懂我”。
-2. 再帮用户整理和补全。
-3. 最后在具体场景节点出现行动入口。
-
-当前延展页承担轻量承接：
-
-- 洱海页可自然承接咖啡、骑行、住宿。
-- 雪山页可自然承接机位、穿搭、拍摄模板。
-- 美食页可自然承接餐厅、夜市、本地小吃。
-
-商业入口不是硬广告，而是用户意图推进到某一步后的自然承接。
-
-## 11. 成功指标
-
-Demo 阶段不需要真实埋点，但路演中用指标面板展示产品闭环。
-
-可展示指标：
-
-- 知音入口点击率。
-- 5 秒理解率。
-- 横滑进入率。
-- 拨片使用率。
-- 卡片保存率。
-- 商业入口点击率。
-- 完整演示链路时长。
-
-## 12. 当前风险
-
-### 风险一：像攻略工具
-
-如果页面太重、信息太满，就会像传统旅游攻略。
-
-应对：
-
-- 保持半屏卡和轻量方向卡。
-- 不做 Day 1 / Day 2 行程。
-- 不做地图路线详情。
-
-### 风险二：像聊天机器人
-
-如果强调输入和对话，就会偏离“刷到即懂”。
-
-应对：
-
-- 输入只保留“一句想法”。
-- 不做聊天气泡。
-- 不做助手欢迎语。
-
-### 风险三：商业转化过早
-
-如果首屏直接卖酒店、门票、团购，会像广告。
-
-应对：
-
-- 商业承接放在用户选择方向后。
-- 入口跟随具体意图出现。
-
-### 风险四：素材真实感不足
-
-当前图片是阶段素材，真实感和抖音视频氛围仍有限。
-
-应对：
-
-- 后续优先替换视频素材。
-- 替换后重调遮罩、亮度和文字可读性。
-
-## 13. 暂定产品定位
-
-知音不是一个独立 AI 助手，而是抖音信息流里的智能内容组织层。
-
-它把用户已经刷过、收藏过、喜欢过、转发过的内容重新组织，在用户再次刷到相关入口时，生成一个刚好可理解、可选择、可继续展开的内容单元。
-
-以云南出游为例：
-
-```text
-用户刷到的是一条视频，知音看见的是一次潜在出发。
-用户收藏的是很多碎片，知音拼出来的是一个属于他的云南。
-```
+- Home sheet fits in one screen.
+- Duplicate insight/evidence box is removed.
+- Direction cards are the primary action.
+- Detail sheets are compact, inset, media-led, and half-screen.
