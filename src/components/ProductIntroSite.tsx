@@ -85,7 +85,7 @@ const journeySteps: JourneyStep[] = [
     time: "8-15s",
     eyebrow: "过往行为",
     title: "她已经留下很多云南线索",
-    body: "点赞、收藏、评论、转发和长看已经表达了她的兴趣，但这些内容仍然散落在不同视频里，没有成为一个能继续生长的灵感。",
+    body: "点赞、收藏、评论、转发和常看已经表达了她的兴趣，但这些内容仍然散落在不同视频里，没有成为一个能继续生长的灵感。",
     bullets: ["收藏洱海日落和雪山机位", "点赞窗边咖啡、本地美食", "评论民族风穿搭，转发避坑内容"],
     action: "旅程节点：暑假临近，过去积累的云南兴趣重新被内容流唤起。",
     visualMode: "signals",
@@ -330,7 +330,7 @@ const journeySteps: JourneyStep[] = [
     time: "98-105s",
     eyebrow: "产品总结",
     title: "知音是抖音刷视频场景里的 AI 内容整理层",
-    body: "它不是独立旅行 App，不是攻略、地图、chatbot 或商业转化页。它把用户已经表达过的兴趣，整理成一张会生长、可回到行动的灵感卡。",
+    body: "它不是独立旅行 App，也不是传统收藏夹。当前 MVP 不展开攻略、地图、chatbot 或商业转化，只验证把兴趣整理成一张会生长、可回到行动的灵感卡。",
     bullets: ["懂你：理解收藏、点赞、观看、分享", "整理：把碎片变成灵感卡", "补全：后续内容继续进入同一张卡", "轻行动：从灵感走向低压力动作"],
     action: "旅程节点：知音始终留在抖音内容流里，负责把兴趣整理、补全，并轻轻推向行动。",
     visualMode: "summary",
@@ -345,7 +345,7 @@ const behaviorCards: Array<{ label: string; title: string; copy: string; icon: L
   { label: "点赞", title: "窗边咖啡", copy: "喜欢不赶路的节奏", icon: Heart },
   { label: "评论", title: "民族风穿搭", copy: "问过适合什么颜色", icon: MessageCircle },
   { label: "转发", title: "本地美食", copy: "发给同学说想试试", icon: Send },
-  { label: "长看", title: "云南避坑", copy: "还缺少旅行经验", icon: Clock3 },
+  { label: "常看", title: "云南避坑", copy: "还缺少旅行经验", icon: Clock3 },
 ];
 
 const summaryCards = [
@@ -353,6 +353,12 @@ const summaryCards = [
   { title: "整理", copy: "把碎片内容变成一张会生长的灵感卡。", icon: PackagePlus },
   { title: "补全", copy: "后续刷到相关内容，继续补进同一张卡。", icon: Repeat2 },
   { title: "轻行动", copy: "不急着做攻略，只把灵感推进到一次小动作。", icon: CheckCircle2 },
+];
+
+const summaryScopeCards: Array<{ title: string; copy: string; icon: LucideIcon }> = [
+  { title: "一段旅程", copy: "把收藏过的目的地、机位、食物整理成灵感卡。", icon: Compass },
+  { title: "一次晚餐", copy: "把反复刷到的餐厅、菜品、氛围整理成一个低压力选择。", icon: Heart },
+  { title: "一次散步", copy: "把附近风景、咖啡、路线感内容整理成一次小行动。", icon: Clock3 },
 ];
 
 export function ProductIntroSite() {
@@ -544,8 +550,27 @@ function IntroStoryVisual({ visualMode }: { visualMode: VisualMode }) {
         <Compass size={26} />
         <span>产品定位</span>
         <h2>抖音刷视频场景里的 AI 内容整理层</h2>
-        <p>不是独立旅行 App；不做地图、完整攻略、chatbot 或商业转化。</p>
+        <p>不是独立旅行 App，也不是传统收藏夹；当前 MVP 不展开地图、完整攻略、chatbot 或商业转化，只验证灵感整理到轻行动的闭环。</p>
       </div>
+      <section className="intro-summary-scope" aria-label="知音适用范围">
+        <span>适用范围</span>
+        <h3>不止一段旅程，也可以是一件小事</h3>
+        <p>
+          知音能整理的不是单一旅行场景，而是你在刷视频时反复显露出的生活意图。它可以是一段云南旅程，也可以是一次晚餐、一次散步、一个周末想试试的小计划。
+        </p>
+        <div className="intro-summary-scope-grid">
+          {summaryScopeCards.map((card) => {
+            const Icon = card.icon;
+            return (
+              <article className="intro-summary-scope-card" key={card.title}>
+                <Icon size={16} />
+                <strong>{card.title}</strong>
+                <p>{card.copy}</p>
+              </article>
+            );
+          })}
+        </div>
+      </section>
       <div className="intro-summary-grid">
         {summaryCards.map((card) => {
           const Icon = card.icon;

@@ -80,7 +80,7 @@ The latest build before this handoff passes.
 Current structure:
 
 1. Persona storyboard: Xiaolin, a university student who is interested in Yunnan but has not started planning yet.
-2. Accumulated behavior storyboard: likes, favorites, comments, shares, and long watches around Yunnan content.
+2. Accumulated behavior storyboard: likes, favorites, comments, shares, and frequent watches around Yunnan content.
 3. Synchronized live demo: a 16-step state machine where each `下一步` advances exactly one right-side phone action.
 4. Future iteration storyboard: Zhiyin can continue working before summer vacation with a low-pressure reminder.
 5. Product summary storyboard: Zhiyin is a Douyin feed AI content-organizing layer, not an independent travel app.
@@ -263,6 +263,17 @@ The project now includes a separate `/intro` product introduction site for hacka
 - The future iteration page shows a warm-paper reminder concept only. It does not implement real detection, real reminders, maps, planning, chatbot, or commerce.
 - The intro navigation was moved to a fixed left-side control on desktop and a bottom dock on mobile so the `下一步` button stays fully visible.
 - Latest validation: `npm run build` passes, `/intro` was checked through the synced journey with no console errors, and `/` still loads as the pure demo route.
+
+## 2026-05-17 Final Polish Update
+
+Latest polish before repository sync:
+
+- The product summary page now includes an "applicable scope" block: Zhiyin can organize not only a trip, but also a dinner, a walk, or a small weekend idea.
+- Summary positioning now says Zhiyin is not an independent travel app and not a traditional favorites folder.
+- Commercial wording is framed as a current MVP boundary: the demo does not expand into maps, full guides, chatbot, or commercial conversion, but this is not a permanent product rejection of commerce.
+- User behavior language is now consistently "frequent watches" / `常看`.
+- The Zhiyin warm paper card now shrink-wraps its content inside the half-sheet. This removes the large bottom blank area after the save buttons while preserving the 68% sheet region and internal overflow fallback.
+- Latest validation: `npm.cmd run build` passes, `/intro` step 2 and step 16 were checked in the browser, and `/intro` steps 6/7/8 no longer show the large warm-paper blank area.
 
 ## Suggested Prompt For Next Conversation
 

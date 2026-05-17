@@ -36,11 +36,28 @@ Demo controls:
 
 Avoid:
 
-- commercial CTA language
+- traditional favorites-folder positioning
+- commercial CTA language in the current MVP flow
 - hotel / booking / route-planning blocks
 - long strategy-guide text
 - generic SaaS dashboard styling
 - a separate app-like navigation system
+
+### Summary Scope Block
+
+The final product summary page should include a restrained scope block after the product definition and before the four value cards.
+
+Content intent:
+
+- Zhiyin is not only for a travel journey.
+- It can also organize a dinner, a walk, or a small weekend idea.
+- The shared pattern is "content interest -> organized inspiration card -> low-pressure action".
+
+Visual rules:
+
+- Keep the block warm-paper and compact.
+- Use three small cards or chips for `一段旅程`, `一次晚餐`, and `一次散步`.
+- Do not make the examples feel like new modules, ads, maps, routes, or booking flows.
 
 ## Feed Page
 

@@ -1745,10 +1745,12 @@ button {
 }
 
 .zhiyin-paper-card--single {
+  flex: 0 0 auto;
+  max-height: calc(100% - 24px);
   display: flex;
   flex-direction: column;
-  padding-bottom: 8px;
-  overflow: hidden;
+  padding-bottom: 4px;
+  overflow-y: auto;
 }
 
 .paper-brand-row {
@@ -3338,12 +3340,21 @@ button {
 }
 
 .intro-summary-board {
+  max-height: 100%;
+  overflow-y: auto;
   display: grid;
   gap: 14px;
+  padding: 2px;
+  scrollbar-width: none;
+}
+
+.intro-summary-board::-webkit-scrollbar {
+  display: none;
 }
 
 .intro-summary-definition,
-.intro-summary-card {
+.intro-summary-card,
+.intro-summary-scope {
   color: #21170f;
   background:
     radial-gradient(circle at 90% 8%, rgba(255, 225, 160, 0.38), transparent 33%),
@@ -3372,6 +3383,74 @@ button {
   font-size: 14px;
   font-weight: 850;
   line-height: 1.55;
+}
+
+.intro-summary-scope {
+  display: grid;
+  gap: 11px;
+  padding: 18px;
+  border-radius: 22px;
+}
+
+.intro-summary-scope span {
+  width: fit-content;
+  padding: 5px 9px;
+  border-radius: 999px;
+  color: #21170f;
+  background: rgba(255, 230, 166, 0.72);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.intro-summary-scope h3 {
+  margin: 0;
+  color: #20160f;
+  font-size: 21px;
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.intro-summary-scope > p {
+  margin: 0;
+  color: rgba(38, 29, 21, 0.66);
+  font-size: 13px;
+  font-weight: 820;
+  line-height: 1.58;
+}
+
+.intro-summary-scope-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.intro-summary-scope-card {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-height: 118px;
+  padding: 11px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.48);
+  box-shadow: inset 0 0 0 1px rgba(72, 54, 34, 0.09);
+}
+
+.intro-summary-scope-card svg {
+  color: #a26f2d;
+}
+
+.intro-summary-scope-card strong {
+  color: #21170f;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.intro-summary-scope-card p {
+  margin: 0;
+  color: rgba(38, 29, 21, 0.62);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.45;
 }
 
 .intro-summary-grid {
@@ -3638,6 +3717,7 @@ button {
   }
 
   .intro-summary-grid,
+  .intro-summary-scope-grid,
   .intro-signal-board {
     grid-template-columns: 1fr;
   }
@@ -3649,7 +3729,8 @@ button {
 
   .intro-persona-card,
   .intro-reminder-card,
-  .intro-summary-definition {
+  .intro-summary-definition,
+  .intro-summary-scope {
     padding: 20px;
   }
 
