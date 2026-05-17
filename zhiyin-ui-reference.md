@@ -14,6 +14,34 @@ Priority:
 4. Keep all detail pages compact and media-led.
 5. Treat saved results as collectible inspiration cards, not itinerary documents.
 
+## Product Intro Site
+
+`/intro` is the roadshow site, not a marketing landing page.
+
+It should feel like a product story board:
+
+- dark Douyin scene background
+- warm paper story panels
+- restrained badges and status labels
+- left-side journey explanation
+- right-side embedded phone demo during live demo steps
+
+The page tells the story of Xiaolin, a university student who is interested in Yunnan travel but has not started planning yet. The intro should show her accumulated behavior signals before it shows the phone demo.
+
+Demo controls:
+
+- `下一步` advances one demo action at a time.
+- On desktop, controls are fixed on the left side of the screen and must stay fully visible.
+- On mobile, controls dock at the bottom and must not obscure the main content.
+
+Avoid:
+
+- commercial CTA language
+- hotel / booking / route-planning blocks
+- long strategy-guide text
+- generic SaaS dashboard styling
+- a separate app-like navigation system
+
 ## Feed Page
 
 Keep:
@@ -247,7 +275,7 @@ Clicking a direction row opens the existing compact detail sheet for that topic.
 The merged 灵感袋 must preserve the product loop from inspiration to a small action:
 
 - title: 变成一次小行动
-- copy: 周末先找一家低配代餐
+- copy: 把灵感变成更具体的行动安排
 - button: 设个提醒
 - after click: button/state changes to 已记下 and shows mock reminder copy
 
@@ -320,6 +348,12 @@ Do not add:
 
 Before handing off:
 
+- `/intro` opens the product story site.
+- `/intro` can advance through the full 16-step journey.
+- each `下一步` creates only one visible demo-state change on the right.
+- the active journey node follows the current right-side state.
+- the desktop `下一步` control is fully visible on the left side.
+- the mobile `下一步` control is fully visible in the bottom dock.
 - home sheet fits in one screen
 - no duplicate insight/evidence box on the home sheet
 - three direction cards are visible and tappable
@@ -343,7 +377,7 @@ Latest UI decisions:
 - The saved inspiration mini card uses a collectible-card layout: top cover collage, centered title/meta/chips/progress, and no text/image overlap.
 - The mini card remains a single parent card; child directions are not shown as top-level saved cards.
 - Child direction cards in the detail are clickable and use a subtle arrow affordance.
-- The lightweight action panel keeps the action low pressure, including `周末先去找个低配代餐`.
+- The lightweight action panel keeps the action low pressure, including `把灵感变成更具体的行动安排`.
 - Detail media cards show small source badges. Default is `来自你的收藏`; individual cards can show `你点赞过`, `你转发过`, or `你评论过`.
 - The Zhiyin feed entry typography was tightened to keep `你收藏的云南，有 3 种打开方式` visible without changing the original pill layout.
 - Video 5 gives the demo a later-feed moment for reopening the saved 灵感袋 card.

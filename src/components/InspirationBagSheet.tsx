@@ -1,11 +1,12 @@
 import { Bell, CheckCircle2, ChevronRight, Sparkles, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { inspirationBagCard } from "../data/mockData";
 import type { ExploreTopic } from "./CafeExploreSheet";
 import { MediaView } from "./MediaView";
 
 type InspirationBagSheetProps = {
   addedFeedIds: string[];
+  initialReminderSet?: boolean;
   onClose: () => void;
   onContinueFeed: () => void;
   onOpenExplore: (topic: ExploreTopic) => void;
@@ -31,12 +32,16 @@ const tuneOptions: Array<{ id: TuneId; label: string; feedback: string }> = [
   },
 ];
 
-export function InspirationBagSheet({ addedFeedIds, onClose, onOpenExplore }: InspirationBagSheetProps) {
+export function InspirationBagSheet({ addedFeedIds, initialReminderSet = false, onClose, onOpenExplore }: InspirationBagSheetProps) {
   const [selectedTune, setSelectedTune] = useState<TuneId | undefined>();
-  const [isReminderSet, setIsReminderSet] = useState(false);
+  const [isReminderSet, setIsReminderSet] = useState(initialReminderSet);
   const addedCount = addedFeedIds.length;
   const hasUpdates = addedCount > 0;
   const selectedTuneCopy = tuneOptions.find((option) => option.id === selectedTune)?.feedback;
+
+  useEffect(() => {
+    setIsReminderSet(initialReminderSet);
+  }, [initialReminderSet]);
 
   return (
     <div className="inspiration-layer">
@@ -110,7 +115,7 @@ export function InspirationBagSheet({ addedFeedIds, onClose, onOpenExplore }: In
           <section className={isReminderSet ? "bag-action-strip bag-action-strip--done" : "bag-action-strip"} aria-label="变成一次小行动">
             <div>
               <span>{isReminderSet ? "已记下" : "变成一次小行动"}</span>
-              <strong>{isReminderSet ? "知音会在周末前提醒你先看一眼。" : "周末先找一家低配代餐"}</strong>
+              <strong>{isReminderSet ? "知音会在周末前提醒你先看一眼。" : "把灵感变成更具体的行动安排"}</strong>
             </div>
             <button type="button" onClick={() => setIsReminderSet(true)}>
               {isReminderSet ? <CheckCircle2 size={15} /> : <Bell size={15} />}

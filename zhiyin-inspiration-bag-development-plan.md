@@ -4,6 +4,8 @@ Updated: 2026-05-17
 
 Status: Implemented in the current local demo.
 
+Latest note: the loop is also covered by `/intro`, where a 16-step synchronized journey demonstrates Video 1 favorite, Video 2 Zhiyin open, save to 灵感袋, Video 3/4 supplement, Video 5 return, and mock weekend reminder as separate roadshow steps.
+
 ## Goal
 
 Add the next demo loop for Zhiyin without changing the core positioning:
@@ -210,7 +212,7 @@ At the bottom of the merged 灵感袋, keep a low-pressure action strip:
 
 ```text
 变成一次小行动
-周末先找一家低配代餐
+把灵感变成更具体的行动安排
 设个提醒
 ```
 
@@ -333,7 +335,7 @@ Implemented after the first loop:
 - A fifth feed video was added so the user can reopen the saved 灵感袋 card from a later browsing moment instead of only looping back to Video 1.
 - The mini inspiration card layout was refined to avoid overlap and center the card text/progress.
 - The card detail's three child directions now navigate to their corresponding detail sheets.
-- The light action copy was lowered in commitment: `周末先去找个低配代餐`.
+- The light action copy now encourages action without promising a full plan: `把灵感变成更具体的行动安排`.
 - Detail cards support individual source labels for collection, like, share, and comment signals.
 
 Latest validation:

@@ -55,7 +55,9 @@ The latest build before this handoff passes.
 
 ## Key Files
 
-- `src/App.tsx`: top-level screen state and navigation.
+- `src/App.tsx`: lightweight route switch. `/` renders the pure phone demo, `/intro` renders the product intro site.
+- `src/components/ZhiyinDemoExperience.tsx`: reusable phone demo shell and local state owner for feed, Zhiyin sheet, detail sheets, add-success toast, and inspiration bag.
+- `src/components/ProductIntroSite.tsx`: `/intro` product story site with the 16-step synchronized user journey.
 - `src/components/DouyinFeedScreen.tsx`: Douyin-style feed.
 - `src/components/ZhiyinFollowupPrompt.tsx`: lightweight follow-up prompt for adding later feed videos into the saved inspiration card.
 - `src/components/ZhiyinSheet.tsx`: Zhiyin home half-sheet.
@@ -70,6 +72,27 @@ The latest build before this handoff passes.
 - `src/components/InspirationSaveSheet.tsx`: legacy save confirmation/success surface plus lightweight add-success toast for later feed updates.
 - `src/components/InspirationBagSheet.tsx`: merged 灵感袋 surface with the saved parent card, child directions, tuning chips, and lightweight action strip in one half-sheet.
 - `zhiyin-inspiration-bag-development-plan.md`: implemented development plan for the 灵感袋 loop.
+
+## Product Intro Site
+
+`/intro` is now the hackathon / pitch entry. It keeps the current demo mechanics, but wraps them in a complete target-user journey instead of a metrics panel.
+
+Current structure:
+
+1. Persona storyboard: Xiaolin, a university student who is interested in Yunnan but has not started planning yet.
+2. Accumulated behavior storyboard: likes, favorites, comments, shares, and long watches around Yunnan content.
+3. Synchronized live demo: a 16-step state machine where each `下一步` advances exactly one right-side phone action.
+4. Future iteration storyboard: Zhiyin can continue working before summer vacation with a low-pressure reminder.
+5. Product summary storyboard: Zhiyin is a Douyin feed AI content-organizing layer, not an independent travel app.
+
+Important implementation details:
+
+- `/intro` passes a `demoPreset` into `ZhiyinDemoExperience`.
+- Presets are used only for roadshow stability. The pure `/` route does not pass a preset and remains manually interactive.
+- `DouyinFeedScreen` supports optional controlled active video and favorite state for `/intro`.
+- `ZhiyinSheet` supports optional preset tab/source-clue state for the "查看灵感卡内容" step.
+- `InspirationBagSheet` supports optional initial reminder state for the "设置周末小行动" step.
+- On wide screens, the intro controls are fixed on the left side so the `下一步` button stays visible. On narrow screens, controls dock at the bottom.
 
 ## Current UX Flow
 
@@ -229,6 +252,17 @@ The demo now implements the refined UI direction for the Video 2 Zhiyin home car
 - The merged 灵感袋 shows the parent card title, status line, three child direction rows, tuning chips, and the bottom "变成一次小行动" strip.
 - The action strip uses mock state only: "设个提醒" changes to "已记下"; no real reminder, calendar, map, or commerce is implemented.
 - Latest validation: `npm run build` passes, and browser checks showed no app console errors.
+
+## 2026-05-17 Product Intro Update
+
+The project now includes a separate `/intro` product introduction site for hackathon / pitch use:
+
+- `/` remains the pure interactive phone demo and no longer shows the metrics panel.
+- `/intro` presents the complete Xiaolin user journey, then drives the right-side phone demo with a 16-step synchronized state machine.
+- `下一步` advances one demo action at a time: Video 1 appears, Video 1 is favorited, Video 2 appears, Zhiyin opens, the card is reviewed, the card is saved, Video 3/4 are added, Video 5 returns to the bag, and the mock reminder state is shown.
+- The future iteration page shows a warm-paper reminder concept only. It does not implement real detection, real reminders, maps, planning, chatbot, or commerce.
+- The intro navigation was moved to a fixed left-side control on desktop and a bottom dock on mobile so the `下一步` button stays fully visible.
+- Latest validation: `npm run build` passes, `/intro` was checked through the synced journey with no console errors, and `/` still loads as the pure demo route.
 
 ## Suggested Prompt For Next Conversation
 

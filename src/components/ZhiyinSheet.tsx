@@ -1,11 +1,13 @@
 import { Bookmark, CheckCircle2, Heart, MessageCircle, MountainSnow, PackagePlus, Repeat2, Sparkles, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { InspirationBundle } from "../types";
 
 type ZhiyinSheetProps = {
   isOpen: boolean;
   bundles: InspirationBundle[];
   isInspirationSaved: boolean;
+  activeOpeningIndexPreset?: number;
+  activeClueIndexPreset?: number;
   onClose: () => void;
   onSaveInspiration: () => void;
   onContinueFeed: () => void;
@@ -44,6 +46,8 @@ export function ZhiyinSheet({
   isOpen,
   bundles,
   isInspirationSaved,
+  activeOpeningIndexPreset,
+  activeClueIndexPreset,
   onClose,
   onSaveInspiration,
   onContinueFeed,
@@ -51,6 +55,17 @@ export function ZhiyinSheet({
 }: ZhiyinSheetProps) {
   const [activeOpeningIndex, setActiveOpeningIndex] = useState(0);
   const [activeClueIndex, setActiveClueIndex] = useState(0);
+
+  useEffect(() => {
+    if (typeof activeOpeningIndexPreset === "number") {
+      setActiveOpeningIndex(Math.max(0, Math.min(activeOpeningIndexPreset, openingClues.length - 1)));
+    }
+
+    if (typeof activeClueIndexPreset === "number") {
+      setActiveClueIndex(Math.max(0, Math.min(activeClueIndexPreset, 2)));
+    }
+  }, [activeOpeningIndexPreset, activeClueIndexPreset]);
+
   const activeTitle = directionTitles[activeOpeningIndex];
   const activeSummary = directionSummaries[activeOpeningIndex];
   const activeClues = openingClues[activeOpeningIndex];

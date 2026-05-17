@@ -13,6 +13,8 @@ type DouyinFeedScreenProps = {
   isInspirationSaved?: boolean;
   addedFeedIds?: string[];
   onOpenInspirationBag?: () => void;
+  activeIndexOverride?: number;
+  favoritedIdsOverride?: string[];
 };
 
 const SWIPE_DURATION_MS = 260;
@@ -65,6 +67,8 @@ export function DouyinFeedScreen({
   isInspirationSaved = false,
   addedFeedIds = [],
   onOpenInspirationBag,
+  activeIndexOverride,
+  favoritedIdsOverride,
 }: DouyinFeedScreenProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [dragY, setDragY] = useState(0);
@@ -77,22 +81,25 @@ export function DouyinFeedScreen({
   const frameRef = useRef<HTMLElement | null>(null);
   const wheelLockedRef = useRef(false);
 
-  const activeItem = feedVideos[activeIndex];
+  const isActiveIndexControlled = typeof activeIndexOverride === "number";
+  const effectiveActiveIndex = getLoopedIndex(activeIndexOverride ?? activeIndex, feedVideos.length);
+  const effectiveFavoritedIds = favoritedIdsOverride ?? favoritedIds;
+  const activeItem = feedVideos[effectiveActiveIndex];
   const visibleSlides = useMemo(
     () =>
       [-1, 0, 1].map((position) => ({
         position,
-        item: feedVideos[getLoopedIndex(activeIndex + position, feedVideos.length)],
+        item: feedVideos[getLoopedIndex(effectiveActiveIndex + position, feedVideos.length)],
       })),
-    [activeIndex],
+    [effectiveActiveIndex],
   );
 
   useEffect(() => {
-    preloadMedia(feedVideos, activeIndex);
-  }, [activeIndex]);
+    preloadMedia(feedVideos, effectiveActiveIndex);
+  }, [effectiveActiveIndex]);
 
   const commitSwipe = (direction: 1 | -1) => {
-    if (isSettling || isSheetOpen) return;
+    if (isSettling || isSheetOpen || isActiveIndexControlled) return;
 
     const height = frameRef.current?.clientHeight ?? 760;
     setIsDragging(false);
@@ -113,7 +120,7 @@ export function DouyinFeedScreen({
   };
 
   const handlePointerDown = (event: PointerEvent<HTMLElement>) => {
-    if (isSettling || isSheetOpen) return;
+    if (isSettling || isSheetOpen || isActiveIndexControlled) return;
 
     event.currentTarget.setPointerCapture(event.pointerId);
     startYRef.current = event.clientY;
@@ -153,7 +160,7 @@ export function DouyinFeedScreen({
   };
 
   const handleWheel = (event: WheelEvent<HTMLElement>) => {
-    if (isSettling || isSheetOpen || wheelLockedRef.current || Math.abs(event.deltaY) < WHEEL_THRESHOLD) return;
+    if (isSettling || isSheetOpen || isActiveIndexControlled || wheelLockedRef.current || Math.abs(event.deltaY) < WHEEL_THRESHOLD) return;
 
     wheelLockedRef.current = true;
     commitSwipe(event.deltaY > 0 ? 1 : -1);
@@ -168,6 +175,8 @@ export function DouyinFeedScreen({
   };
 
   const handleToggleFavorite = () => {
+    if (favoritedIdsOverride) return;
+
     setFavoritedIds((current) =>
       current.includes(activeItem.id)
         ? current.filter((id) => id !== activeItem.id)
@@ -179,7 +188,7 @@ export function DouyinFeedScreen({
     { label: activeItem.stats.likes, icon: Heart, kind: "like" },
     { label: activeItem.stats.comments, icon: MessageCircle, kind: "comment" },
     {
-      label: favoritedIds.includes(activeItem.id) ? incrementStat(activeItem.stats.favorites) : activeItem.stats.favorites,
+      label: effectiveFavoritedIds.includes(activeItem.id) ? incrementStat(activeItem.stats.favorites) : activeItem.stats.favorites,
       icon: Star,
       kind: "favorite",
     },
@@ -254,7 +263,7 @@ export function DouyinFeedScreen({
         {sideActions.map((action) => {
           const Icon = action.icon;
           const isFavorite = action.kind === "favorite";
-          const isActive = isFavorite && favoritedIds.includes(activeItem.id);
+          const isActive = isFavorite && effectiveFavoritedIds.includes(activeItem.id);
           return (
             <button
               className={`side-action ${isActive ? "side-action--active" : ""}`}
@@ -333,7 +342,7 @@ export function DouyinFeedScreen({
       </footer>
       <div className="feed-progress" aria-hidden="true">
         {feedVideos.map((item, index) => (
-          <span className={index === activeIndex ? "feed-progress__dot feed-progress__dot--active" : "feed-progress__dot"} key={item.id} />
+          <span className={index === effectiveActiveIndex ? "feed-progress__dot feed-progress__dot--active" : "feed-progress__dot"} key={item.id} />
         ))}
       </div>
     </section>

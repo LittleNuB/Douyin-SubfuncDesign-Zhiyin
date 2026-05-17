@@ -55,6 +55,27 @@ The first demo target is a user who:
 
 This user is earlier than "I booked a trip and need an itinerary." They are at "I kind of want to go."
 
+## Pitch Story: Xiaolin's Journey
+
+The `/intro` site now anchors the pitch around one typical user:
+
+- Xiaolin is a university student who often watches Yunnan / Dali / Erhai content.
+- She likes, saves, comments, shares, and long-watches related videos, but she has not had a vacation yet and does not know enough to start planning.
+- As summer vacation approaches, she browses Yunnan content again. Video 1 is still ordinary browsing, but saving it adds a new interest signal.
+- Video 2 overlaps with her accumulated interest strongly enough for Zhiyin to appear in the feed.
+- Zhiyin turns scattered signals into one parent inspiration card: `慢下来也能出片`.
+- The card is saved into 灵感袋, then Video 3 and Video 4 can supplement the same card instead of creating new collection noise.
+- When Xiaolin later sees an unrelated Video 5, the feed topic has changed but the inspiration remains recoverable through 灵感袋.
+- The final product move is a low-pressure action: a mock weekend reminder, not a map, itinerary, booking, or route.
+
+Future iteration direction:
+
+- Zhiyin can keep working before the user formally plans a trip.
+- When Yunnan interest keeps warming up and summer timing becomes relevant, Zhiyin can lightly remind the user that the inspiration is ready to be revisited.
+- Example reminder concept: `你的云南灵感，快攒成一次出发了。最近你又补进了洱海日落、窗边咖啡和雪山机位。暑假快到了，要不要先把「慢下来也能出片」变成一个周末小计划？`
+
+This remains a product-direction page only. The current demo does not implement real detection or real reminders.
+
 ## Core Experience Principles
 
 ### Be Understood Before Being Guided

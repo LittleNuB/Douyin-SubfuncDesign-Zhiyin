@@ -83,6 +83,39 @@ Feed video poster policy:
 
 ## Component Map
 
+### 2026-05-17 Routing And Intro Architecture
+
+`App.tsx` now owns only a lightweight route switch:
+
+- `/`: pure interactive phone demo, rendered through `ZhiyinDemoExperience`.
+- `/intro`: product introduction and synchronized roadshow, rendered through `ProductIntroSite`.
+
+`ZhiyinDemoExperience.tsx` owns the reusable demo state that previously lived at app level:
+
+- `screen`: `feed | erhai | snow | food`
+- `isSheetOpen`
+- `overlay`: `none | addSuccess | inspirationBag`
+- `isInspirationSaved`
+- `addedFeedIds`
+- `lastAddedItem`
+
+It accepts an optional `demoPreset` prop for `/intro` only. When no preset is passed, the pure `/` route remains manually interactive.
+
+`ProductIntroSite.tsx` renders the 16-step Xiaolin journey. Each `下一步` advances one right-side phone-demo action, then the left-side journey state updates from the active step.
+
+Preset fields currently supported:
+
+- `activeVideoIndex`
+- `favoritedIds`
+- `isSheetOpen`
+- `overlay`
+- `isInspirationSaved`
+- `addedFeedIds`
+- `lastAddedFeedId`
+- `zhiyinOpeningIndex`
+- `zhiyinClueIndex`
+- `initialReminderSet`
+
 ### `App.tsx`
 
 Owns top-level state:
@@ -292,6 +325,11 @@ npm run build
 
 Manual browser checks:
 
+- `/` opens the pure phone demo without the metrics panel.
+- `/intro` opens the product introduction site.
+- `/intro` can advance through all 16 steps with one right-side demo action per `下一步`.
+- `/intro` desktop controls stay fixed on the left and the `下一步` button remains fully visible.
+- `/intro` mobile controls dock at the bottom and do not cover the main story content.
 - Feed still looks like a Douyin sub-feature context.
 - Five feed videos swipe vertically and loop.
 - Video 1 has no Zhiyin entry.
@@ -350,6 +388,11 @@ Current implementation status:
 - `InspirationBagSheet.tsx` now renders one merged 灵感袋 surface instead of a mini-card home plus card-detail layer.
 - The merged 灵感袋 includes direction rows, tuning chips, and a mock lightweight action strip.
 - Direction rows route to the existing `CafeExploreSheet` topics.
+- `/intro` now provides a product introduction site and a synchronized 16-step Xiaolin user journey.
+- The intro journey uses `demoPreset` snapshots to keep the roadshow stable while preserving free manual interaction on `/`.
+- `DouyinFeedScreen`, `ZhiyinSheet`, and `InspirationBagSheet` now expose optional preset hooks used only by the intro route.
+- The old metrics panel has been removed from the pure `/` demo route.
+- Intro navigation is fixed on the left on desktop and bottom-docked on mobile so `下一步` stays fully visible.
 
 Validation:
 
