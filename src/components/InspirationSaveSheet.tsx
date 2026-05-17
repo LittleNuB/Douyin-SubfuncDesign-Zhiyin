@@ -33,6 +33,37 @@ export function InspirationSaveSheet({
   const isAddSuccess = mode === "addSuccess";
   const lines = addedFeedId === "feed-erhai-cycling" ? updateLines.video4 : updateLines.video3;
 
+  if (isAddSuccess) {
+    return (
+      <div className="inspiration-layer inspiration-layer--toast">
+        <button className="inspiration-backdrop inspiration-backdrop--light" aria-label="关闭补进提示" onClick={onClose} />
+        <section className="inspiration-add-toast" aria-label="灵感卡已更新">
+          <div className="inspiration-add-toast__main">
+            <Check size={16} />
+            <span>
+              <strong>已补进这张灵感卡</strong>
+              {addedTitle ? `刚刚补进：${addedTitle}` : "知音把这条内容放进了「慢下来也能出片」。"}
+            </span>
+          </div>
+          <div className="inspiration-add-toast__chips" aria-label="本次更新">
+            {lines.map((line) => (
+              <em key={line}>{line}</em>
+            ))}
+          </div>
+          <div className="inspiration-add-toast__actions">
+            <button type="button" onClick={onContinueFeed}>
+              继续刷视频
+            </button>
+            <button type="button" onClick={onViewBag}>
+              查看灵感袋
+              <ArrowRight size={14} />
+            </button>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
   return (
     <div className="inspiration-layer">
       <button className="inspiration-backdrop" aria-label="关闭灵感卡弹层" onClick={onClose} />

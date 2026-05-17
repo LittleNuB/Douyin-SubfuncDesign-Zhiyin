@@ -1,6 +1,6 @@
 # Zhiyin Web Demo Technical Plan
 
-Updated: 2026-05-16
+Updated: 2026-05-17
 
 ## Goal
 
@@ -68,12 +68,13 @@ media: {
 
 `poster` is optional in the type, but the current feed videos intentionally do not use posters.
 
-Feed videos are represented by `FeedVideoItem` in `src/types.ts`. The current feed uses four local video files:
+Feed videos are represented by `FeedVideoItem` in `src/types.ts`. The current feed uses five local video files:
 
 - `/assets/feed-video-1.mp4`
 - `/assets/feed-video-2.mp4`
 - `/assets/feed-video-3.mp4`
 - `/assets/feed-video-4.mp4`
+- `/assets/feed-video-5.mp4`
 
 Feed video poster policy:
 
@@ -88,15 +89,15 @@ Owns top-level state:
 
 - `screen`: `feed | erhai | snow | food`
 - `isSheetOpen`
-- `activeIndex`
-- `selectedChips`
-- `textConstraint`
-- `isInputOpen`
+- `overlay`: `none | addSuccess | inspirationBag`
+- `isInspirationSaved`
+- `addedFeedIds`
+- `lastAddedItem`
 
 Current note:
 
 - `App.tsx` now owns the local mock state for the 灵感袋 flow.
-- It tracks whether the parent card is saved, which feed items were added, the last added item, and the selected lightweight tuning chip.
+- It tracks whether the parent card is saved, which feed items were added, and the last added item.
 
 Navigation rules:
 
@@ -135,8 +136,11 @@ Renders the Zhiyin home half-sheet:
 - warm paper card
 - brand row
 - understood copy
-- recommendation row with refresh button placeholder
-- `InspirationCarousel`
+- embedded parent card: "慢下来也能出片"
+- segmented tabs: 洱海边 / 雪山照 / 本地味
+- source clue rows that switch the left-side image in place
+- gray "不感兴趣" and black "收进灵感袋" actions before save
+- compact saved state with "继续刷视频" and "查看灵感袋"
 
 ### `InspirationCarousel.tsx`
 
@@ -200,23 +204,26 @@ Lightweight prompt displayed on later feed videos.
 Current behavior:
 
 - Shows "这条可以补进你的「慢下来也能出片」".
-- Clicking it opens an update feedback sheet.
-- The feedback sheet offers "查看灵感袋" and "继续刷视频".
+- Clicking it opens a lightweight add-success toast.
+- The toast offers "查看灵感袋" and "继续刷视频".
 
 ### `InspirationSaveSheet.tsx`
 
 - save confirmation for "慢下来也能出片"
 - save success feedback
-- add-success feedback after Video 3/4 prompts
+- lightweight add-success toast after Video 3/4 prompts
 
 ### `InspirationBagSheet.tsx`
 
-- first layer: 灵感袋 with one collectible mini card
-- mini card: "慢下来也能出片"
-- second layer: the three child directions inside that mini card
-- lightweight tuning row: 更慢一点 / 少走路 / 更出片
+- merged single-layer 灵感袋 half-sheet
+- parent card: "慢下来也能出片"
+- status line: `3 个打开方式 · 已收集 9 条` plus `新补进 +N` when available
+- three child direction rows: Erhai, snow mountain, local food
+- row click routes to existing `CafeExploreSheet` topics
+- lightweight tuning chips: 更慢一点 / 少走路 / 更出片
+- bottom "变成一次小行动" strip with mock reminder state
 
-The card detail is implemented inside `InspirationBagSheet.tsx` rather than a separate component.
+The previous mini-card home and second-layer card detail are intentionally merged for the current one-card demo.
 
 ### `orchestration.ts`
 
@@ -255,11 +262,17 @@ Important classes:
 Implemented classes:
 
 - `.inspiration-bag-sheet`
-- `.mini-inspiration-card`
-- `.child-direction-card`
+- `.inspiration-bag-sheet--merged`
+- `.bag-merged-card`
+- `.bag-direction-row`
+- `.bag-tune-chip`
+- `.bag-action-strip`
+- `.inspiration-add-toast`
 - `.inspiration-bag-entry`
 - `.save-hero-card`
-- `.bag-tune-panel`
+- `.zhiyin-main-card`
+- `.zhiyin-opening-tabs`
+- `.zhiyin-clue-card`
 
 Current key layout decisions:
 
@@ -280,7 +293,7 @@ npm run build
 Manual browser checks:
 
 - Feed still looks like a Douyin sub-feature context.
-- Four feed videos swipe vertically and loop.
+- Five feed videos swipe vertically and loop.
 - Video 1 has no Zhiyin entry.
 - Video 2 has Zhiyin entry.
 - Video 3/4 have follow-up prompts.
@@ -290,6 +303,13 @@ Manual browser checks:
 - Detail media cards can scroll horizontally.
 - Dot clicks switch detail cards.
 - Back from detail returns to the Zhiyin home sheet.
+- Zhiyin home source clue clicks switch the left-side image in place.
+- "不感兴趣" closes the Zhiyin home sheet without saving.
+- "查看灵感袋" opens the merged 灵感袋 sheet directly.
+- Video 3/4 add-success feedback is a compact toast, not a large feedback card.
+- 灵感袋 direction rows open the correct detail sheet.
+- 灵感袋 tuning chips show short feedback.
+- "设个提醒" changes to a mock "已记下" state.
 
 ## Known Non-P0 Items
 
@@ -318,3 +338,23 @@ npm run build
 ```
 
 The latest build passed after the current updates.
+
+## 2026-05-17 Implementation Status
+
+Current implementation status:
+
+- `ZhiyinSheet.tsx` has replaced the old carousel-first surface with an embedded parent inspiration card.
+- The home card supports in-place opening tabs and source clue image switching.
+- The unsaved action row includes `不感兴趣` and `收进灵感袋`; the saved state remains in the same sheet.
+- `InspirationSaveSheet.tsx` uses a compact add-success toast for Video 3/4 feed updates.
+- `InspirationBagSheet.tsx` now renders one merged 灵感袋 surface instead of a mini-card home plus card-detail layer.
+- The merged 灵感袋 includes direction rows, tuning chips, and a mock lightweight action strip.
+- Direction rows route to the existing `CafeExploreSheet` topics.
+
+Validation:
+
+```bash
+npm run build
+```
+
+The latest build passed after these updates.

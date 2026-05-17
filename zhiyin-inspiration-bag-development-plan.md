@@ -1,6 +1,6 @@
 # Zhiyin Inspiration Bag Development Plan
 
-Updated: 2026-05-16
+Updated: 2026-05-17
 
 Status: Implemented in the current local demo.
 
@@ -25,10 +25,11 @@ Use this hierarchy:
    - Generic container for saved Zhiyin inspiration cards.
    - Do not call it "云南灵感袋"; Yunnan is the current scenario, not the product container.
 
-2. **缩尺灵感卡**
+2. **展开灵感卡**
    - The saved unit in the 灵感袋.
    - Current demo has one main card: **慢下来也能出片**.
    - This card is the AI-organized inspiration result.
+   - For the current one-card demo, the 灵感袋 home and detail are merged into one expanded half-sheet.
 
 3. **子内容 / 打开方式**
    - Only visible after opening the saved inspiration card.
@@ -125,7 +126,7 @@ Button:
 + 加入
 ```
 
-After tapping it, show an update feedback sheet:
+After tapping it, show a lightweight update toast:
 
 ```text
 已加入「慢下来也能出片」
@@ -151,44 +152,27 @@ Actions:
 
 ### 6. Inspiration Bag Sheet
 
-The 灵感袋 first layer should show saved inspiration cards as collectible mini cards.
+The current demo uses a merged 灵感袋 sheet instead of a separate mini-card home plus detail layer.
 
-For this demo, show one saved card:
+For this demo, opening 灵感袋 directly shows the expanded saved card:
 
 ```text
 慢下来也能出片
-3 个打开方式
-已收集 9 条 · 新补进 +1
+3 个打开方式 · 已收集 9 条 · 新补进 +1
 ```
 
-Mini-card visual requirements:
+Merged-card visual requirements:
 
-- Looks like a smaller version of the Zhiyin inspiration card.
-- Has a cover collage or stacked thumbnails.
-- Shows three small chips:
-  - 洱海边
-  - 雪山照
-  - 本地味
+- Still feels like a collected inspiration object, not a list page.
+- Shows the parent card title and status line.
+- Shows three compact direction rows with thumbnails.
 - Shows an updated badge after adding Video 3 or 4.
-- Should feel like a collected object, not a settings row.
+- Includes lightweight tuning chips.
+- Includes the bottom action strip for "变成一次小行动".
 
-### 7. Inspiration Card Detail
+### 7. Direction Rows
 
-Clicking the mini card opens the card detail layer:
-
-Title:
-
-```text
-慢下来也能出片
-```
-
-Subtitle:
-
-```text
-来自你刷过、收藏过和刚刚补进的云南内容。
-```
-
-Show the three child directions:
+The merged 灵感袋 directly shows the three child directions:
 
 1. 去洱海边慢下来
    - Summary: 窗边咖啡、日落、少走路
@@ -200,11 +184,13 @@ Show the three child directions:
 3. 把晚上留给本地味道
    - Summary: 菌子火锅、小街、夜市
 
-This detail layer should not be a full itinerary page. It should be a compact overview of what is inside the saved inspiration card.
+Clicking a direction row opens the existing compact Erhai/Snow/Food detail sheet.
+
+This merged layer should not become a full itinerary page. It should be a compact overview of what is inside the saved inspiration card.
 
 ### 8. Lightweight Adjustment
 
-Inside the card detail, include a small tuning row:
+Inside the merged card, include a small tuning row:
 
 - 更慢一点
 - 少走路
@@ -217,6 +203,25 @@ When a chip is tapped, show a lightweight updated line:
 ```
 
 No complex editing, no full planner, no map.
+
+### 9. Lightweight Action Strip
+
+At the bottom of the merged 灵感袋, keep a low-pressure action strip:
+
+```text
+变成一次小行动
+周末先找一家低配代餐
+设个提醒
+```
+
+After tapping "设个提醒", keep the state local and mock-only:
+
+```text
+已记下
+知音会在周末前提醒你先看一眼。
+```
+
+Do not call real reminder, calendar, route, map, booking, or commerce APIs.
 
 ## State Model Proposal
 
@@ -252,9 +257,9 @@ Implemented components:
   - add-success feedback after later feed videos are added
 
 - `InspirationBagSheet.tsx`
-  - first layer: 灵感袋 with mini inspiration card
-  - second layer: card detail with the three child directions under "慢下来也能出片"
+  - merged 灵感袋 half-sheet with the parent card and three child directions
   - lightweight tuning row for 更慢一点 / 少走路 / 更出片
+  - bottom "变成一次小行动" strip with mock reminder state
 
 Reuse existing components/patterns:
 
@@ -292,10 +297,10 @@ The saved count and update badge can be computed from `addedFeedIds`.
 Do:
 
 - Keep all new surfaces as half-sheets or inset sheets.
-- Make the mini card feel collectible.
+- Make the merged parent card feel collectible.
 - Use "灵感卡" language instead of "攻略".
 - Show update badges such as "新补进 +1".
-- Make the three child directions visible only after opening the mini card.
+- Keep the three child directions inside the merged parent card, not as separate top-level cards.
 
 Do not:
 
@@ -310,10 +315,11 @@ Do not:
 Before marking this loop complete:
 
 - Video 2 Zhiyin entry still opens the existing home sheet.
-- Saving "慢下来也能出片" puts one mini card into 灵感袋.
-- The mini card contains the three child directions only after click/open.
-- Video 3/4 "+ 加入" updates the saved mini card.
-- The updated state is visible in 灵感袋.
+- Saving "慢下来也能出片" opens the merged 灵感袋 card when the user taps "查看灵感袋".
+- The merged card directly contains the three child directions.
+- Video 3/4 "+ 加入" updates the saved parent card.
+- The updated state is visible in the merged 灵感袋 as `新补进 +N`.
+- The bottom action strip can switch to mock "已记下" state.
 - Existing Erhai/Snow/Food detail sheets still work if used.
 - `npm run build` passes.
 - Browser check has no console errors.
@@ -329,6 +335,28 @@ Implemented after the first loop:
 - The card detail's three child directions now navigate to their corresponding detail sheets.
 - The light action copy was lowered in commitment: `周末先去找个低配代餐`.
 - Detail cards support individual source labels for collection, like, share, and comment signals.
+
+Latest validation:
+
+```bash
+npm run build
+```
+
+The build passes.
+
+## 2026-05-17 Current Status
+
+Status: refined and locally validated.
+
+Implemented after the first loop:
+
+- Zhiyin home now presents the parent card directly with segmented opening tabs.
+- Source clue rows switch the current tab image in place.
+- The unsaved home action row now includes `不感兴趣` and `收进灵感袋`.
+- Later feed add-success feedback is a compact toast rather than a large half-sheet.
+- The 灵感袋 mini-card home and card-detail layer are merged into one expanded half-sheet.
+- The merged 灵感袋 includes direction rows, tuning chips, and the bottom `变成一次小行动` strip.
+- The action strip uses mock reminder state only.
 
 Latest validation:
 

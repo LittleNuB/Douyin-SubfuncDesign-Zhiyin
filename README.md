@@ -15,7 +15,7 @@ The demo expresses one product idea:
 5. Save the parent card into `灵感袋`.
 6. Continue browsing; Video 3 and Video 4 can be added into the saved card.
 7. Video 5 gives a later browsing moment where the saved `灵感袋` entry can be reopened.
-8. Open the mini inspiration card to see its three child directions and the lightweight action exit.
+8. Open the merged inspiration bag to see the saved card, its three child directions, tuning chips, and the lightweight action exit.
 
 ## Run Locally
 

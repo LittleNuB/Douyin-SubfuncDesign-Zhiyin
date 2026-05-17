@@ -1,6 +1,6 @@
 # Zhiyin Product Brief
 
-Updated: 2026-05-16
+Updated: 2026-05-17
 
 ## One-Line Product Definition
 
@@ -103,16 +103,16 @@ The child directions should be visible only after opening the saved card. They s
 2. The first video behaves like a normal feed video.
 3. The second video shows a Zhiyin entry pill in the feed content layer.
 4. User opens Zhiyin.
-5. Zhiyin home sheet shows the understood copy and three directions.
-6. Current implementation: user taps a direction card and is asked to save the parent inspiration card **慢下来也能出片** into 灵感袋.
-7. User saves the card, then can view it as a collectible mini card in 灵感袋.
-8. Opening that mini card reveals the three child directions:
+5. Zhiyin home sheet shows the understood copy and the parent inspiration card **慢下来也能出片**.
+6. The parent card has three in-place opening tabs and source clues that switch the current image.
+7. User saves the card, then can view it in the merged 灵感袋 half-sheet.
+8. The merged 灵感袋 directly reveals the three child directions:
    - Erhai
    - Snow mountain
    - Local food
-9. Existing compact detail sheets remain available through "先看看详情".
+9. Existing compact detail sheets remain available by tapping each direction row.
 10. Videos 3 and 4 show lightweight prompts for adding related content into the saved inspiration card.
-11. Adding later content updates the saved mini card and highlights the relevant child direction.
+11. Adding later content uses a compact toast and updates the merged 灵感袋 card, highlighting the relevant child direction.
 
 ## Current Demo Loop: 灵感袋
 
@@ -130,11 +130,11 @@ The approved next flow is:
 
 8. User taps "+ 加入".
 9. Zhiyin shows that the saved card has updated.
-10. User opens 灵感袋 and sees one collectible mini card:
+10. User opens 灵感袋 and sees the merged expanded card:
 
     > 慢下来也能出片
 
-11. User taps that mini card to reveal the three child directions.
+11. User sees the three child directions directly, plus tuning chips and a bottom "变成一次小行动" strip.
 
 This loop should express:
 
@@ -207,6 +207,7 @@ The current prototype now completes the intended product loop:
 - The saved card can be reopened from a later browsing moment and expanded into three child directions.
 - Each child direction can continue into a compact media-led detail sheet.
 - The card can move toward a lightweight action through a mock reminder state.
+- The current implementation merges the 灵感袋 home and card detail into one half-sheet because the demo has only one saved parent card.
 
 The product boundary remains unchanged:
 

@@ -1,6 +1,6 @@
 # Zhiyin Web Demo UI Reference
 
-Updated: 2026-05-16
+Updated: 2026-05-17
 
 ## UI Goal
 
@@ -66,16 +66,18 @@ Current structure:
 3. warm paper card
 4. brand row
 5. understood copy
-6. recommendation row with refresh button placeholder
-7. three direction cards
-8. tuning chips
-9. one-thought input
+6. embedded parent inspiration card: 慢下来也能出片
+7. three segmented opening tabs: 洱海边 / 雪山照 / 本地味
+8. current tab detail: left image, right title/summary/source clues
+9. bottom action row: 不感兴趣 / 收进灵感袋
 
 Latest decision:
 
 - The duplicate insight/evidence text box below the direction cards has been removed.
 - The home sheet should show all normal content in one screen.
 - It should not require vertical scroll for the demo path.
+- Source clues inside the current tab switch the left image in place. They do not open a new page.
+- Saving stays in the current card and exposes "继续刷视频" and "查看灵感袋".
 
 Visual direction:
 
@@ -200,10 +202,10 @@ Keep topic pages as inspiration continuations, not full guides.
 
 The current implemented collection surface is 灵感袋.
 
-Hierarchy:
+Current hierarchy:
 
 1. 灵感袋
-2. 缩尺灵感卡: 慢下来也能出片
+2. Expanded parent inspiration card: 慢下来也能出片
 3. Child directions inside that card:
    - 去洱海边慢下来
    - 拍一组雪山人生照
@@ -211,20 +213,22 @@ Hierarchy:
 
 Do not call the first layer "云南灵感袋". Yunnan is the current scenario, not the product container.
 
-### Mini Inspiration Card
+### Merged Inspiration Bag
 
-The first layer of 灵感袋 should show a collectible mini card:
+The current one-card demo merges the 灵感袋 home and the card detail into one half-sheet.
 
-- title: 慢下来也能出片
-- metadata: 3 个打开方式 / 已收集 9 条 / 新补进 +1
-- cover: stacked thumbnails or a compact collage
-- chips: 洱海边 / 雪山照 / 本地味
+Opening 灵感袋 should directly show:
 
-The mini card should feel like an object the user collected. Avoid a plain list row.
+- header: 灵感袋 / 来自知音持续补全
+- parent title: 慢下来也能出片
+- metadata: 3 个打开方式 · 已收集 9 条 · 新补进 +1 when updated
+- three compact direction rows
+- tuning chips: 更慢一点 / 少走路 / 更出片
+- bottom action strip: 变成一次小行动
 
-### Card Detail
+Do not show a separate mini-card home layer in the current demo. If the product later has multiple saved cards, the mini-card layer can return.
 
-After tapping the mini card, show the three child directions.
+### Direction Rows
 
 Each child direction should be compact:
 
@@ -232,10 +236,22 @@ Each child direction should be compact:
 - one-line summary
 - optional update badge
 - small media thumbnail
+- subtle arrow affordance
 
 The "去洱海边慢下来" child direction can show "新补进 +1" after Video 3 is added.
 
-The detail should not become a travel guide page. It should show what is inside the saved inspiration card.
+Clicking a direction row opens the existing compact detail sheet for that topic. The direction rows should not expand into a travel guide page.
+
+### Lightweight Action Strip
+
+The merged 灵感袋 must preserve the product loop from inspiration to a small action:
+
+- title: 变成一次小行动
+- copy: 周末先找一家低配代餐
+- button: 设个提醒
+- after click: button/state changes to 已记下 and shows mock reminder copy
+
+This is a mock state only. Do not call real reminders, calendars, maps, or commerce.
 
 ### Update Feedback
 
@@ -251,7 +267,7 @@ Then offer:
 - 查看灵感袋
 - 继续刷视频
 
-This feedback should be a half-sheet or compact card, not a full page.
+This feedback should be a lightweight toast or compact card, not a full page or large half-sheet.
 
 ## Color And Texture
 
@@ -314,8 +330,10 @@ Before handing off:
 - first video has no Zhiyin entry
 - second video has Zhiyin entry
 - later videos have lighter follow-up prompts
-- 灵感袋 mini card uses the parent "慢下来也能出片"
-- the three child directions are visible only after opening that mini card
+- 灵感袋 opens directly into the merged "慢下来也能出片" card
+- the three child directions are visible in the merged 灵感袋 sheet
+- tuning chips show a short feedback line
+- the bottom action strip can switch from "设个提醒" to mock "已记下"
 - `npm run build` passes
 
 ## 2026-05-16 UI Progress Notes
@@ -329,3 +347,14 @@ Latest UI decisions:
 - Detail media cards show small source badges. Default is `来自你的收藏`; individual cards can show `你点赞过`, `你转发过`, or `你评论过`.
 - The Zhiyin feed entry typography was tightened to keep `你收藏的云南，有 3 种打开方式` visible without changing the original pill layout.
 - Video 5 gives the demo a later-feed moment for reopening the saved 灵感袋 card.
+
+## 2026-05-17 UI Progress Notes
+
+Latest UI decisions:
+
+- Zhiyin home now uses a single embedded parent card with segmented opening tabs.
+- Right-side source clues inside the home card switch the left-side image in place.
+- The home action row includes a gray `不感兴趣` button and a black `收进灵感袋` button.
+- Later feed add-success feedback is now a compact toast.
+- 灵感袋 home and card detail are merged into one expanded half-sheet for the current one-card demo.
+- The merged 灵感袋 preserves the bottom `变成一次小行动` strip with mock reminder state only.

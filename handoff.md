@@ -1,6 +1,6 @@
 # Zhiyin Web Demo Handoff
 
-Updated: 2026-05-16
+Updated: 2026-05-17
 
 ## Product Positioning
 
@@ -66,14 +66,14 @@ The latest build before this handoff passes.
 - `src/lib/orchestration.ts`: local rule-based AI simulation.
 - `src/styles.css`: all UI styling.
 - `public/assets/*.webp`: current Image2-generated placeholder assets.
-- `public/assets/feed-video-1.mp4` through `feed-video-4.mp4`: current real feed video assets.
-- `src/components/InspirationSaveSheet.tsx`: save confirmation, save success, and add-success feedback.
-- `src/components/InspirationBagSheet.tsx`: 灵感袋 with one mini inspiration card and its child-direction detail.
+- `public/assets/feed-video-1.mp4` through `feed-video-5.mp4`: current real feed video assets.
+- `src/components/InspirationSaveSheet.tsx`: legacy save confirmation/success surface plus lightweight add-success toast for later feed updates.
+- `src/components/InspirationBagSheet.tsx`: merged 灵感袋 surface with the saved parent card, child directions, tuning chips, and lightweight action strip in one half-sheet.
 - `zhiyin-inspiration-bag-development-plan.md`: implemented development plan for the 灵感袋 loop.
 
 ## Current UX Flow
 
-1. User browses a vertical Douyin-style video feed with four real video assets.
+1. User browses a vertical Douyin-style video feed with five real video assets.
 2. Video 1 is a normal feed video and does not show the Zhiyin entry.
 3. Video 2 shows the Zhiyin entry pill.
 4. User taps the Zhiyin entry pill.
@@ -83,15 +83,17 @@ The latest build before this handoff passes.
    - Go slow by Erhai
    - Take a snow mountain life photo set
    - Keep the evening for local food
-8. Current implemented behavior: tapping a direction card starts the save flow for the parent card "慢下来也能出片".
-9. User can save it into 灵感袋, view the mini inspiration card, and open that card to see the three child directions.
-10. The old detail sheets remain available through the save confirmation secondary action "先看看详情":
+8. Current implemented behavior: the home sheet presents the parent card "慢下来也能出片" directly, with three segmented opening tabs.
+9. The opening tabs switch content in place. Each right-side source clue switches the left image inside the same card.
+10. User can save the parent card into 灵感袋 from the current sheet. The save state stays in place with "继续刷视频" and "查看灵感袋".
+11. The merged 灵感袋 opens directly into the saved "慢下来也能出片" card, showing its three child directions without a separate mini-card click.
+12. The child directions remain connected to the existing detail sheets:
    - `erhai` -> "Kan Erhai"
    - `snow` -> "Kan Xueshan"
    - `food` -> "Kan Meishi"
-11. The detail sheet uses a compact inner window, large horizontal media cards, clickable dots, and a bottom-pinned "opening method" line.
-12. The top-left back button on a detail sheet returns to the Zhiyin home sheet.
-13. Videos 3 and 4 show a lightweight "补进灵感" prompt. Tapping it opens an update feedback sheet and updates the saved mini inspiration card.
+13. The detail sheet uses a compact inner window, large horizontal media cards, clickable dots, and a bottom-pinned "opening method" line.
+14. The top-left back button on a detail sheet returns to the Zhiyin home sheet.
+15. Videos 3 and 4 show a lightweight "补进灵感" prompt. Tapping it now shows a compact add-success toast and updates the merged 灵感袋 card.
 
 ## Latest UI State
 
@@ -100,9 +102,11 @@ Zhiyin home:
 - Warm paper-card style inside the Douyin feed.
 - Brand row: Zhiyin + "from your favorites + AI completion".
 - Main understood copy remains at the top.
-- Three direction cards are the main visual choice surface.
-- The duplicate `active-insight` text/evidence box was removed so the whole home sheet fits in one screen.
-- Chips and one-thought input remain, but are visually compact.
+- The first screen now centers on an embedded parent card: "慢下来也能出片".
+- The embedded card has three segmented tabs: 洱海边 / 雪山照 / 本地味.
+- Each tab has one image and three source clues. Tapping a clue switches the left image in place instead of navigating.
+- The bottom action row has a gray "不感兴趣" button and a black "收进灵感袋" button.
+- After save, the card stays in place and shows "已收进灵感袋", "继续刷视频", and "查看灵感袋".
 
 Detail sheets:
 
@@ -115,7 +119,7 @@ Detail sheets:
 Feed:
 
 - The feed is now a vertical short-video stream with wheel/pointer swipe transitions.
-- The feed loops across four videos.
+- The feed loops across five videos.
 - Feed videos use `MediaAsset` with `type: "video"` and `src` only. The current demo intentionally does not use video posters.
 - The right favorite/star action can be tapped and increments the displayed count locally.
 - The bottom UI uses a Douyin-style tab bar instead of the previous comment input pill.
@@ -123,13 +127,15 @@ Feed:
 Inspiration bag:
 
 - 灵感袋 is a generic container, not "云南灵感袋".
-- It saves one parent mini inspiration card: "慢下来也能出片".
-- Opening that card reveals three child directions:
+- It saves one parent inspiration card: "慢下来也能出片".
+- The 灵感袋 home and card detail are now merged into one expanded half-sheet; there is no separate mini-card layer in the current demo.
+- The merged card directly shows three child directions:
   - 去洱海边慢下来
   - 拍一组雪山人生照
   - 把晚上留给本地味道
 - Later feed videos update the saved parent card rather than creating new top-level cards.
-- The detail includes lightweight tuning chips: 更慢一点 / 少走路 / 更出片.
+- The merged card includes lightweight tuning chips: 更慢一点 / 少走路 / 更出片.
+- The bottom action strip keeps the "变成一次小行动" exit with mock reminder state only.
 
 ## Current Assets
 
@@ -151,6 +157,7 @@ Assets are in `public/assets/`:
 - `feed-video-2.mp4`
 - `feed-video-3.mp4`
 - `feed-video-4.mp4`
+- `feed-video-5.mp4`
 
 Current feed assets are real demo videos and do not use poster images. Other topic/detail assets are still stage/demo images. Future video replacement should keep the same `MediaAsset` shape:
 
@@ -193,8 +200,8 @@ When continuing:
 3. Run `npm run build`.
 4. Open `http://127.0.0.1:5173`.
 5. Check the home sheet and all three detail sheets visually.
-6. Check the vertical video feed: first video has no Zhiyin entry, second video has Zhiyin entry, third/fourth videos have follow-up prompts.
-7. Check the 灵感袋 loop: save "慢下来也能出片", open the mini card, add Video 3 or 4, and confirm the mini card shows `新补进 +1`.
+6. Check the vertical video feed: first video has no Zhiyin entry, second video has Zhiyin entry, third/fourth videos have follow-up prompts, and fifth video can reopen 灵感袋 after save.
+7. Check the 灵感袋 loop: save "慢下来也能出片", open the merged 灵感袋, add Video 3 or 4, and confirm the merged card shows `新补进 +1`.
 
 ## 2026-05-16 Progress Update
 
@@ -208,6 +215,19 @@ The demo now implements the MVP loop for "方案 A：灵感卡生命周期":
 - The light action exit is implemented with mock reminder copy only; no real system reminder is used.
 - Detail media cards now show source badges such as `来自你的收藏`, `你点赞过`, `你转发过`, and `你评论过`.
 - `feed-video-5.mp4` has been added to `public/assets/` and does not use a poster.
+- Latest validation: `npm run build` passes, and browser checks showed no app console errors.
+
+## 2026-05-17 Progress Update
+
+The demo now implements the refined UI direction for the Video 2 Zhiyin home card and the merged 灵感袋 loop:
+
+- `ZhiyinSheet` now shows the parent card "慢下来也能出片" as the main first-screen surface.
+- The three opening tabs switch in place, and each right-side source clue switches the left-side image without leaving the card.
+- The home save row now includes a gray "不感兴趣" button next to the black "收进灵感袋" button.
+- `InspirationSaveSheet` uses a lightweight toast for Video 3/4 add-success feedback instead of a large feedback card.
+- `InspirationBagSheet` now merges the 灵感袋 home and card detail into one expanded half-sheet.
+- The merged 灵感袋 shows the parent card title, status line, three child direction rows, tuning chips, and the bottom "变成一次小行动" strip.
+- The action strip uses mock state only: "设个提醒" changes to "已记下"; no real reminder, calendar, map, or commerce is implemented.
 - Latest validation: `npm run build` passes, and browser checks showed no app console errors.
 
 ## Suggested Prompt For Next Conversation
