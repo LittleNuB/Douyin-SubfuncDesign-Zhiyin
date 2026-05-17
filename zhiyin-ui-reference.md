@@ -77,8 +77,22 @@ Avoid:
 
 - center modal launchers
 - large floating CTA buttons
+- autoplaying audible music before user interaction
 - top search-led entry
 - guide-page navigation
+
+## Intro Background Music Toggle
+
+The `/intro` roadshow page can include one restrained background-music control near the previous/next controls.
+
+Rules:
+
+- Default state is off.
+- User click starts or pauses the local mp3.
+- Keep playback volume low enough for a spoken demo.
+- The control should stay near `上一步` / `下一步`, not inside the pure phone demo.
+- The pure `/` demo route should not show a background music button.
+- Do not add a playlist, volume slider, waveform, or music-player surface.
 
 Current feed rule:
 

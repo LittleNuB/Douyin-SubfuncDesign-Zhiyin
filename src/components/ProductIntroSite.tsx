@@ -17,12 +17,16 @@ import {
   Star,
   UserRound,
   Video,
+  Volume2,
+  VolumeX,
   type LucideIcon,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { ZhiyinDemoExperience, type ZhiyinDemoPreset } from "./ZhiyinDemoExperience";
 
 type VisualMode = "persona" | "signals" | "demo" | "future" | "summary";
+
+const BACKGROUND_MUSIC_VOLUME = 0.24;
 
 type JourneyStep = {
   phase: string;
@@ -362,7 +366,9 @@ const summaryScopeCards: Array<{ title: string; copy: string; icon: LucideIcon }
 ];
 
 export function ProductIntroSite() {
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [activeJourneyStepIndex, setActiveJourneyStepIndex] = useState(0);
+  const [isMusicOn, setIsMusicOn] = useState(false);
   const activeStep = journeySteps[activeJourneyStepIndex];
   const showDemo = activeStep.visualMode === "demo";
   const StepIcon = activeStep.icon;
@@ -376,8 +382,39 @@ export function ProductIntroSite() {
     setActiveJourneyStepIndex(Math.max(0, Math.min(journeySteps.length - 1, index)));
   };
 
+  const handleToggleMusic = async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.volume = BACKGROUND_MUSIC_VOLUME;
+
+    if (isMusicOn) {
+      audio.pause();
+      setIsMusicOn(false);
+      return;
+    }
+
+    try {
+      await audio.play();
+      setIsMusicOn(true);
+    } catch {
+      setIsMusicOn(false);
+    }
+  };
+
   return (
     <main className={`intro-site ${showDemo ? "intro-site--demo" : ""}`}>
+      <audio
+        ref={audioRef}
+        src="/assets/background-yunnan-breeze.mp3"
+        loop
+        preload="metadata"
+        onLoadedMetadata={() => {
+          if (audioRef.current) {
+            audioRef.current.volume = BACKGROUND_MUSIC_VOLUME;
+          }
+        }}
+      />
       <header className="intro-topbar">
         <a className="intro-brand" href="/" aria-label="打开纯 demo">
           <span>知音</span>
@@ -458,6 +495,16 @@ export function ProductIntroSite() {
         <button type="button" onClick={() => goToStep(activeJourneyStepIndex - 1)} disabled={activeJourneyStepIndex === 0}>
           <ArrowLeft size={16} />
           上一步
+        </button>
+        <button
+          className={`intro-music-toggle ${isMusicOn ? "intro-music-toggle--on" : ""}`}
+          type="button"
+          aria-label={isMusicOn ? "关闭背景音乐" : "打开背景音乐"}
+          aria-pressed={isMusicOn}
+          onClick={handleToggleMusic}
+        >
+          {isMusicOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
+          背景音
         </button>
         <button type="button" onClick={() => goToStep(activeJourneyStepIndex + 1)} disabled={activeJourneyStepIndex === journeySteps.length - 1}>
           下一步

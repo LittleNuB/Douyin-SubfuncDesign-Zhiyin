@@ -75,11 +75,21 @@ Feed videos are represented by `FeedVideoItem` in `src/types.ts`. The current fe
 - `/assets/feed-video-3.mp4`
 - `/assets/feed-video-4.mp4`
 - `/assets/feed-video-5.mp4`
+- `/assets/background-yunnan-breeze.mp3`
 
 Feed video poster policy:
 
 - None. `feed-image-*` files were intentionally removed from the feed video setup.
 - Do not reintroduce feed posters unless explicitly requested.
+
+Background music policy:
+
+- The mp3 is a local public asset.
+- `ProductIntroSite` renders one hidden `<audio>` element and one visible on/off button.
+- The button appears only on `/intro`, next to the previous/next controls.
+- The pure `/` demo route has no background-music control.
+- Music is off by default and starts only after a user click.
+- Runtime volume is set to `0.24`; do not normalize or overwrite the source mp3 unless explicitly requested.
 
 ## Component Map
 
@@ -230,6 +240,13 @@ Business components should keep using `MediaView`.
 
 `MediaView` still supports optional `poster`, but feed data currently omits it.
 
+### `PhoneFrame.tsx`
+
+- wraps the phone demo
+- renders the home indicator
+
+Background music intentionally does not live in `PhoneFrame`, because it should appear only in the `/intro` roadshow controls and not in the pure `/` phone demo.
+
 ### `ZhiyinFollowupPrompt.tsx`
 
 Lightweight prompt displayed on later feed videos.
@@ -330,6 +347,8 @@ Manual browser checks:
 - `/intro` can advance through all 16 steps with one right-side demo action per `下一步`.
 - `/intro` desktop controls stay fixed on the left and the `下一步` button remains fully visible.
 - `/intro` mobile controls dock at the bottom and do not cover the main story content.
+- `/intro` background music button is visible near previous/next controls, starts playback after a click, and toggles back to paused state.
+- `/` pure demo does not show a background music button.
 - Feed still looks like a Douyin sub-feature context.
 - Five feed videos swipe vertically and loop.
 - Video 1 has no Zhiyin entry.

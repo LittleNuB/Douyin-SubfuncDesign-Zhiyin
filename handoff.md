@@ -181,6 +181,7 @@ Assets are in `public/assets/`:
 - `feed-video-3.mp4`
 - `feed-video-4.mp4`
 - `feed-video-5.mp4`
+- `background-yunnan-breeze.mp3`
 
 Current feed assets are real demo videos and do not use poster images. Other topic/detail assets are still stage/demo images. Future video replacement should keep the same `MediaAsset` shape:
 
@@ -192,6 +193,15 @@ media: {
 ```
 
 `poster` remains optional in the type for future use, but do not add it to the feed videos unless explicitly requested.
+
+Background music:
+
+- `ProductIntroSite` owns the hidden `<audio>` element and the visible background-music toggle.
+- The background-music toggle appears only on `/intro`, next to the `上一步` / `下一步` controls.
+- The pure `/` demo route does not show or mount the background-music control.
+- The mp3 loops only after the user taps the button, because browsers block autoplay with sound.
+- Playback volume is set in code to `0.24` so the music stays behind the spoken demo.
+- The source file is `public/assets/background-yunnan-breeze.mp3`.
 
 ## Hard Constraints
 
@@ -273,6 +283,7 @@ Latest polish before repository sync:
 - Commercial wording is framed as a current MVP boundary: the demo does not expand into maps, full guides, chatbot, or commercial conversion, but this is not a permanent product rejection of commerce.
 - User behavior language is now consistently "frequent watches" / `常看`.
 - The Zhiyin warm paper card now shrink-wraps its content inside the half-sheet. This removes the large bottom blank area after the save buttons while preserving the 68% sheet region and internal overflow fallback.
+- `/intro` now includes a background music toggle near the previous/next controls. The local mp3 starts only after a user click, loops at low volume, and can be paused from the same control.
 - Latest validation: `npm.cmd run build` passes, `/intro` step 2 and step 16 were checked in the browser, and `/intro` steps 6/7/8 no longer show the large warm-paper blank area.
 
 ## Suggested Prompt For Next Conversation
